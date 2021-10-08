@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623096100376",
+    "project_id": "world-food-a94cc",
+    "storage_bucket": "world-food-a94cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623096100376:android:89dda90e3fa4a10d2ff56d",
+        "android_client_info": {
+          "package_name": "com.se.iths.app21.grupp1.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623096100376-568uilop6o2uc7tjeduo2v7rvve5pv0v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp7FM-QDMF9e3WX_BeX2kRm2BoHSwQbCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623096100376-568uilop6o2uc7tjeduo2v7rvve5pv0v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
