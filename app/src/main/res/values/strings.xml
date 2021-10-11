@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">World Food</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="googleMapsKey">AIzaSyD4OuA5dDcyYEl_3JQx8WsZDwQOeycNXZ8</string>
 </resources>
