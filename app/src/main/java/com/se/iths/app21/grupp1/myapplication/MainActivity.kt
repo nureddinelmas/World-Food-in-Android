@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.signIn -> {
-
+                val intent = Intent(this@MainActivity, Inloggning::class.java)
+                startActivity(intent)
             }
             R.id.signOut -> {
 
