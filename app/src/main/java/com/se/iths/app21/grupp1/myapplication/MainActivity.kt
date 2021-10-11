@@ -15,28 +15,10 @@ class MainActivity : AppCompatActivity() {
 
         val db = Firebase.firestore
 
+        val intent = Intent(this, MapsActivity::class.java)
+        startActivity(intent)
+
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.place_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.signIn -> {
-                val intent = Intent(this@MainActivity, Inloggning::class.java)
-                startActivity(intent)
-            }
-            R.id.signOut -> {
-
-            }
-            R.id.add_place -> {
-                val intent = Intent(this@MainActivity, MapsActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }
