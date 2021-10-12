@@ -20,10 +20,10 @@
             android:name=".PlacesActivity"
             android:exported="true" />
         <activity
-            android:name=".Inloggning"
+            android:name=".InloggningActivity"
             android:exported="true" />
         <activity
-            android:name=".AddPlace"
+            android:name=".AddPlaceActivity"
             android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -33,14 +33,15 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+
 
         <activity
             android:name=".MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -15,9 +15,8 @@ class MainActivity : AppCompatActivity() {
 
         val db = Firebase.firestore
 
-        val intent = Intent(this, MapsActivity::class.java)
-        startActivity(intent)
-
+     val intent = Intent(this@MainActivity, MapsActivity::class.java)
+     startActivity(intent)
     }
 
 
