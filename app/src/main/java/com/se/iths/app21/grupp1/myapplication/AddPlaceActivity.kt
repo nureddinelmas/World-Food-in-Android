@@ -39,6 +39,7 @@ class AddPlaceActivity : AppCompatActivity() {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun savePlaces(){
@@ -62,5 +63,9 @@ class AddPlaceActivity : AppCompatActivity() {
         }
     }
 
+
+    fun givePermissin(){
+
+    }
 
 }
