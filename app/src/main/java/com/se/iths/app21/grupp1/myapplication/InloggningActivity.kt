@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityInloggningBinding
 
-class Inloggning : AppCompatActivity() {
+class InloggningActivity : AppCompatActivity() {
     private lateinit var binding : ActivityInloggningBinding
 
     private lateinit var auth: FirebaseAuth
@@ -22,7 +21,7 @@ class Inloggning : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         if(currentUser != null){
-            val intent = Intent(this@Inloggning, MapsActivity::class.java)
+            val intent = Intent(this@InloggningActivity, MapsActivity::class.java)
             startActivity(intent)
         }
     }
@@ -34,13 +33,13 @@ class Inloggning : AppCompatActivity() {
 
         if (email.isNotEmpty() && password.isNotEmpty()){
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                val intent = Intent(this@Inloggning, MapsActivity::class.java)
+                val intent = Intent(this@InloggningActivity, MapsActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
-                Toast.makeText(this@Inloggning, it.localizedMessage, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@InloggningActivity, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }else{
-            Toast.makeText(this@Inloggning, "Enter email and password", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@InloggningActivity, "Enter email and password", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -51,14 +50,14 @@ class Inloggning : AppCompatActivity() {
 
         if(email.isNotEmpty() && password.isNotEmpty()){
             auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-                val intent = Intent(this@Inloggning, MapsActivity::class.java)
+                val intent = Intent(this@InloggningActivity, MapsActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
-                Toast.makeText(this@Inloggning, it.localizedMessage, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@InloggningActivity, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
 
         }else{
-            Toast.makeText(this@Inloggning, "Enter email and password", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@InloggningActivity, "Enter email and password", Toast.LENGTH_LONG).show()
         }
     }
 }
