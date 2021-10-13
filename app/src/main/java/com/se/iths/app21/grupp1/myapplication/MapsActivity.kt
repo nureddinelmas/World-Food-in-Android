@@ -35,7 +35,7 @@ import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
 import java.util.*
 import kotlin.math.log
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnInfoWindowClickListener{
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnInfoWindowClickListener{
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -119,6 +119,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         mMap.setOnMapLongClickListener(this)
 
         mMap.setOnInfoWindowClickListener(this)
+        mMap.setOnMapClickListener(this)
 
         getData()
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
@@ -231,6 +232,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
            }.show()
        }
     }
+
+    override fun onMapClick(p0: LatLng) {
+        mMap.clear()
+        getData()
+    }
+
 
     fun getData() {
         db.collection("Places").addSnapshotListener { value, error ->
