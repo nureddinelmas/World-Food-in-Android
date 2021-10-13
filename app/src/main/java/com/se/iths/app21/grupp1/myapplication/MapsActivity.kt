@@ -59,6 +59,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     private var infoMaps = false
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -147,20 +149,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            //kullaniciyi izin ile mesaj göstermelimiyiz
+
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
                 Snackbar.make(binding.root, "Permission needed for location", Snackbar.LENGTH_INDEFINITE).setAction("Give Permission"){
-                    // izin istenecek
+
 
                     permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }.show()
             }else{
                 permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
-            // izin yok
+
         }else{
 
-            //izin var
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0f, locationListener)
 
             val lastlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
