@@ -29,7 +29,7 @@ class AddPlaceActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var db : FirebaseFirestore
     lateinit var storage : FirebaseStorage
-    var selectedPicture: Uri? = null
+    private var selectedPicture: Uri? = null
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLaunher : ActivityResultLauncher<String>
 
@@ -50,7 +50,7 @@ class AddPlaceActivity : AppCompatActivity() {
         long = intent.getDoubleExtra("long", 0.0)
 
         registerLauncher()
-        givePermission()
+
 
         binding.saveButton.setOnClickListener {
             upload()
