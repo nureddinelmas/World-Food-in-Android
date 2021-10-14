@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,6 +69,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private fun savePlaces(){
 
         val places = hashMapOf<String, Any>()
+       // val rBar = findViewById<RatingBar>(R.id.rBar)
 
         if(auth.currentUser != null){
             places["userEmail"] = auth.currentUser!!.email!!
@@ -77,6 +79,7 @@ class AddPlaceActivity : AppCompatActivity() {
             places["long"] = long!!.toDouble()
             places["beskrivning"] = binding.beskrivningText.text.toString()
             places["date"] = Timestamp.now()
+            places["rating"] = binding.rBar.numStars
 
             db.collection("Places" ).add(places).addOnSuccessListener {
                 finish()
