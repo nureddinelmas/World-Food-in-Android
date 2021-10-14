@@ -271,7 +271,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             val beskrivning = document!!.get("beskrivning") as? String
 
                             val latLong = LatLng(lat, long)
-                            mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
+                            mMap.addMarker(MarkerOptions().position(latLong).title("Name : $name, Land : $land, Beskrivning :$beskrivning "))
 
                         }
                     }

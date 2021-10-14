@@ -36,6 +36,7 @@
         tools:srcCompat="@drawable/selectimage" />
 
     <EditText
+
         android:id="@+id/beskrivningText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -43,9 +44,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:gravity="top"
         android:hint="Beskrivning"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|start"
+        android:maxLines="10"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
