@@ -24,6 +24,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityAddPlaceBinding
 import java.util.*
 
+
+import com.google.android.gms.tasks.OnSuccessListener
+
+
+
+
 class AddPlaceActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddPlaceBinding
 
@@ -33,6 +39,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private var selectedPicture: Uri? = null
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLaunher : ActivityResultLauncher<String>
+
 
     var lat: Double? = null
     var long: Double? = null
@@ -54,7 +61,7 @@ class AddPlaceActivity : AppCompatActivity() {
 
 
         binding.saveButton.setOnClickListener {
-            upload()
+           // upload()
             savePlaces()
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
@@ -71,25 +78,55 @@ class AddPlaceActivity : AppCompatActivity() {
         val places = hashMapOf<String, Any>()
        // val rBar = findViewById<RatingBar>(R.id.rBar)
 
-        if(auth.currentUser != null){
-            places["userEmail"] = auth.currentUser!!.email!!
-            places["name"] = binding.placeNameText.text.toString()
-            places["land"] = binding.landText.text.toString()
-            places["lat"] = lat!!.toDouble()
-            places["long"] = long!!.toDouble()
-            places["beskrivning"] = binding.beskrivningText.text.toString()
-            places["date"] = Timestamp.now()
-            places["rating"] = binding.rBar.numStars
+        val uuid = UUID.randomUUID()
+        val imageName = "$uuid"
+        val reference = storage.reference
+        val imageReference = reference.child("images").child(imageName)
 
-            db.collection("Places" ).add(places).addOnSuccessListener {
-                finish()
-            }.addOnFailureListener {
+        if(auth.currentUser != null && selectedPicture != null){
+
+            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
+
+                val urlTask = imageReference.putFile(selectedPicture!!).continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    imageReference.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+                        places["userEmail"] = auth.currentUser!!.email!!
+                        places["name"] = binding.placeNameText.text.toString()
+                        places["land"] = binding.landText.text.toString()
+                        places["lat"] = lat!!.toDouble()
+                        places["long"] = long!!.toDouble()
+                        places["beskrivning"] = binding.beskrivningText.text.toString()
+                        places["date"] = Timestamp.now()
+                        places["rating"] = binding.rBar.numStars
+                        places["image"] = downloadUri.toString()
+
+                            db.collection("Places" ).add(places).addOnSuccessListener {
+                                finish()
+                            }.addOnFailureListener {
+                                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                            }
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }
+
+
+            }.addOnFailureListener{
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
+
         }
     }
 
-    fun givePermission(){
+   private fun givePermission(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
@@ -134,19 +171,8 @@ class AddPlaceActivity : AppCompatActivity() {
         }
     }
 
-
-    fun upload(){
-        val uuid = UUID.randomUUID()
-        val imageName = "$uuid"
-        val reference = storage.reference
-        val imageReference = reference.child("images").child(imageName)
-
-        if (selectedPicture != null){
-            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
-
-            }.addOnFailureListener{
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 }
+
+
+
+
