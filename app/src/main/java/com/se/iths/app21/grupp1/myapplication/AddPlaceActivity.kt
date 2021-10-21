@@ -55,6 +55,7 @@ class AddPlaceActivity : AppCompatActivity() {
             places["beskrivning"] = binding.beskrivningText.text.toString()
             places["date"] = Timestamp.now()
 
+
             db.collection("Places" ).add(places).addOnSuccessListener {
                 finish()
             }.addOnFailureListener {
