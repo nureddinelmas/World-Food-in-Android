@@ -24,6 +24,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -62,6 +65,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     private var infoMaps = false
 
+    lateinit var recyclerView: RecyclerView
+
+    var adapter: CuisinesRecycleAdapter? = null
+
+    var isClicked = false
+
+
+
 
 
 
@@ -92,6 +103,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        recyclerView = findViewById(R.id.recyclerView)
+
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        this.adapter = CuisinesRecycleAdapter(this)
+
+        recyclerView.adapter = this.adapter
+
+        val categoryFAB = binding.categoryFloatingActionButton
+        val categoryRecyclerView = binding.recyclerView
+
+        categoryFAB.setOnClickListener {
+            categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
+        }
+
+        if(isClicked) {
+            categoryFAB.setOnClickListener {
+                categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
+                isClicked = false
+            }
+        }
+
+        adapter!!.CuisineSelectListener = CuisineSelectListener {
+            this.getData()
+
+        }
+
+
+
+
+
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
@@ -254,7 +297,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
 
     fun getData() {
+        mMap.clear()
+        adapter!!.addCuisine("All")
         db.collection("Places").addSnapshotListener { value, error ->
+
+
 
             if (error != null){
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
@@ -271,7 +318,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             val beskrivning = document!!.get("beskrivning") as? String
 
                             val latLong = LatLng(lat, long)
-                            mMap.addMarker(MarkerOptions().position(latLong).title("Name : $name, Land : $land, Beskrivning :$beskrivning "))
+
+
+                            adapter!!.addCuisine(land)
+
+                            if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
+                                mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
+
+
+
+
+
 
                         }
                     }

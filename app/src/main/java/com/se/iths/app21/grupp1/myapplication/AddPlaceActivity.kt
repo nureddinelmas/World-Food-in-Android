@@ -76,6 +76,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private fun savePlaces(){
 
         val places = hashMapOf<String, Any>()
+
        // val rBar = findViewById<RatingBar>(R.id.rBar)
 
         val uuid = UUID.randomUUID()
@@ -120,6 +121,7 @@ class AddPlaceActivity : AppCompatActivity() {
 
 
             }.addOnFailureListener{
+
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
 
