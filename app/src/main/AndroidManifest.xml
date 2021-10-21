@@ -8,6 +8,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -18,13 +19,15 @@
         android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".PlacesActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MapsActivity"/>
         <activity
             android:name=".InloggningActivity"
             android:exported="true" />
         <activity
             android:name=".AddPlaceActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MapsActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

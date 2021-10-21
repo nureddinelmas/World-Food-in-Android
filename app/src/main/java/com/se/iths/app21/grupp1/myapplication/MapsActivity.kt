@@ -1,10 +1,14 @@
 package com.se.iths.app21.grupp1.myapplication
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
@@ -72,11 +76,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
 
 
+    @SuppressLint("RestrictedApi", "WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(0xff00ACED.toInt()))
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Maps"
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.abs_layout)
         registerLauncher()
 
         auth= FirebaseAuth.getInstance()
@@ -307,10 +319,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
                             val latLong = LatLng(lat, long)
 
+
                             adapter!!.addCuisine(land)
 
                             if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
                                 mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
+
+
 
 
 
