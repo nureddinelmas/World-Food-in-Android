@@ -37,10 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
 import java.util.*
-import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnInfoWindowClickListener{
 
@@ -158,7 +156,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         when (item.itemId) {
             R.id.signIn -> {
-                val intent = Intent(this@MapsActivity, InloggningActivity::class.java)
+
+                val intent = Intent(this, InloggningActivity::class.java)
                 startActivity(intent)
             }
             R.id.signOut -> {
