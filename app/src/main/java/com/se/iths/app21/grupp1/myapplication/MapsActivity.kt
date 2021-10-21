@@ -115,7 +115,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         }
 
         adapter!!.CuisineSelectListener = CuisineSelectListener {
-            Log.d("testest", "click")
             this.getData()
 
         }
@@ -307,14 +306,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             val beskrivning = document!!.get("beskrivning") as? String
 
                             val latLong = LatLng(lat, long)
-                            //mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
-
-                           /* if(!adapter!!.containsCountry(land)){
-                                var cuisine = Cuisine(land)
-                                adapter!!.cuisines.add(cuisine)
-                            }
-
-                            */
 
                             adapter!!.addCuisine(land)
 

@@ -39,7 +39,6 @@ class CuisinesRecycleAdapter(val context: Context) :
 
 
         if(selectedCountries.isEmpty() && position == 0){
-            //select all
 
             holder.checkBox.setChecked(true)
         } else if (selectedCountries.contains(cuisines.country)){
@@ -49,9 +48,6 @@ class CuisinesRecycleAdapter(val context: Context) :
         }
 
         holder.itemView.setOnClickListener {
-            Log.d("size", selectedCountries.size.toString())
-
-            //selectedCountries.add(cuisines.country)
 
             if(selectedCountries.contains(cuisines.country)){
                 selectedCountries.remove(cuisines.country)
@@ -81,7 +77,6 @@ class CuisinesRecycleAdapter(val context: Context) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val countryCuisineTextView = itemView.findViewById<TextView>(R.id.countryCuisineTextView)
-        var cuisinePosition = 0
 
         var checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)
 
