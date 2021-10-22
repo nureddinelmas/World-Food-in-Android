@@ -3,14 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/edittext_layout.xml" value="0.2520833333333333" />
-        <entry key="app/src/main/res/layout/abs_layout.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable-v24/ic_rectangle_grad.xml" value="0.23148148148148148" />
+        <entry key="app/src/main/res/drawable-v24/ic_ui_grad.xml" value="0.23148148148148148" />
+        <entry key="app/src/main/res/drawable/background_color.xml" value="0.23148148148148148" />
         <entry key="app/src/main/res/layout/activity_add_place.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_inloggning.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_inloggning.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_intro_screen.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_places.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/list_cuisines.xml" value="0.33" />
         <entry key="app/src/main/res/menu/place_menu.xml" value="0.1" />
       </map>
     </option>
