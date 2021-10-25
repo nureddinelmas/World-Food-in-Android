@@ -324,11 +324,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
                                 mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
 
-
-
-
-
-
                         }
                     }
                 }
