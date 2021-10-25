@@ -1,10 +1,13 @@
 package com.se.iths.app21.grupp1.myapplication
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,10 +47,16 @@ class AddPlaceActivity : AppCompatActivity() {
     var lat: Double? = null
     var long: Double? = null
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.abs_layout)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
