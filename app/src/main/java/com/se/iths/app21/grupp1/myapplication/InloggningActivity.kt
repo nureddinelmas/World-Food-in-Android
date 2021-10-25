@@ -3,6 +3,8 @@ package com.se.iths.app21.grupp1.myapplication
 import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -31,6 +33,9 @@ class InloggningActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInloggningBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.abs_layout)
