@@ -69,6 +69,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     var isClicked = false
 
+    private var directionOfPlaces = false
+
 
 
 
@@ -254,7 +256,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     }
 
     override fun onMapLongClick(p0: LatLng) {
-
+        directionOfPlaces = true
         mMap.clear()
 
         infoMaps = true
@@ -274,19 +276,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
 
     override fun onInfoWindowClick(p0: Marker) {
-       if(auth.currentUser != null){
-         if(infoMaps){
-        val intent = Intent(this, AddPlaceActivity::class.java)
-        intent.putExtra("lat",selectedLatitude)
-        intent.putExtra("long", selectedLongtitude)
-        startActivity(intent)
-    }
-       }else{
-           Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
-               val intent = Intent(this, InloggningActivity::class.java)
-               startActivity(intent)
-           }.show()
-       }
+        if(directionOfPlaces){
+            if(auth.currentUser != null){
+                if(infoMaps){
+                    val intent = Intent(this, AddPlaceActivity::class.java)
+                    intent.putExtra("lat",selectedLatitude)
+                    intent.putExtra("long", selectedLongtitude)
+                    startActivity(intent)
+                }
+            }else{
+                Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
+                    val intent = Intent(this, InloggningActivity::class.java)
+                    startActivity(intent)
+                }.show()
+            }
+        }else{
+            val intent = Intent(this, PlacesActivity::class.java)
+            intent.putExtra("lat",p0.position.latitude)
+            intent.putExtra("long", p0.position.longitude)
+            startActivity(intent)
+        }
     }
 
     override fun onMapClick(p0: LatLng) {
