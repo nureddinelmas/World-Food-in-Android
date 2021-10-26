@@ -1,10 +1,13 @@
 package com.se.iths.app21.grupp1.myapplication
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,23 +27,36 @@ import com.google.firebase.storage.FirebaseStorage
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityAddPlaceBinding
 import java.util.*
 
+
+import com.google.android.gms.tasks.OnSuccessListener
+
+
+
+
 class AddPlaceActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddPlaceBinding
 
     lateinit var auth: FirebaseAuth
     lateinit var db : FirebaseFirestore
     lateinit var storage : FirebaseStorage
-    var selectedPicture: Uri? = null
+    private var selectedPicture: Uri? = null
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLaunher : ActivityResultLauncher<String>
+
 
     var lat: Double? = null
     var long: Double? = null
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.abs_layout)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -51,10 +67,10 @@ class AddPlaceActivity : AppCompatActivity() {
         long = intent.getDoubleExtra("long", 0.0)
 
         registerLauncher()
-        givePermission()
+
 
         binding.saveButton.setOnClickListener {
-            upload()
+           // upload()
             savePlaces()
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
@@ -70,26 +86,58 @@ class AddPlaceActivity : AppCompatActivity() {
 
         val places = hashMapOf<String, Any>()
 
+       // val rBar = findViewById<RatingBar>(R.id.rBar)
 
-        if(auth.currentUser != null){
-            places["userEmail"] = auth.currentUser!!.email!!
-            places["name"] = binding.placeNameText.text.toString()
-            places["land"] = binding.landText.text.toString()
-            places["lat"] = lat!!.toDouble()
-            places["long"] = long!!.toDouble()
-            places["beskrivning"] = binding.beskrivningText.text.toString()
-            places["date"] = Timestamp.now()
-            places["rating"] = binding.rBar.numStars
+        val uuid = UUID.randomUUID()
+        val imageName = "$uuid"
+        val reference = storage.reference
+        val imageReference = reference.child("images").child(imageName)
 
-            db.collection("Places" ).add(places).addOnSuccessListener {
-                finish()
-            }.addOnFailureListener {
+        if(auth.currentUser != null && selectedPicture != null){
+
+            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
+
+                val urlTask = imageReference.putFile(selectedPicture!!).continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    imageReference.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+                        places["userEmail"] = auth.currentUser!!.email!!
+                        places["name"] = binding.placeNameText.text.toString()
+                        places["land"] = binding.landText.text.toString()
+                        places["lat"] = lat!!.toDouble()
+                        places["long"] = long!!.toDouble()
+                        places["beskrivning"] = binding.beskrivningText.text.toString()
+                        places["date"] = Timestamp.now()
+                        places["rating"] = binding.rBar.numStars
+                        places["image"] = downloadUri.toString()
+
+                            db.collection("Places" ).add(places).addOnSuccessListener {
+                                finish()
+                            }.addOnFailureListener {
+                                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                            }
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }
+
+
+            }.addOnFailureListener{
+
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
+
         }
     }
 
-    fun givePermission(){
+   private fun givePermission(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
@@ -134,19 +182,8 @@ class AddPlaceActivity : AppCompatActivity() {
         }
     }
 
-
-    fun upload(){
-        val uuid = UUID.randomUUID()
-        val imageName = "$uuid"
-        val reference = storage.reference
-        val imageReference = reference.child("images").child(imageName)
-
-        if (selectedPicture != null){
-            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
-
-            }.addOnFailureListener{
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 }
+
+
+
+

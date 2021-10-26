@@ -24,6 +24,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -34,10 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
 import java.util.*
-import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnInfoWindowClickListener{
 
@@ -61,6 +62,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     private var selectedLongtitude : Double? = null
 
     private var infoMaps = false
+
+    lateinit var recyclerView: RecyclerView
+
+    var adapter: CuisinesRecycleAdapter? = null
+
+    var isClicked = false
+
+    private var directionOfPlaces = false
+
+
 
 
 
@@ -92,6 +103,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        recyclerView = findViewById(R.id.recyclerView)
+
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        this.adapter = CuisinesRecycleAdapter(this)
+
+        recyclerView.adapter = this.adapter
+
+        val categoryFAB = binding.categoryFloatingActionButton
+        val categoryRecyclerView = binding.recyclerView
+
+        categoryFAB.setOnClickListener {
+            categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
+        }
+
+        if(isClicked) {
+            categoryFAB.setOnClickListener {
+                categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
+                isClicked = false
+            }
+        }
+
+        adapter!!.CuisineSelectListener = CuisineSelectListener {
+            this.getData()
+
+        }
+
+
+
+
+
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
@@ -115,7 +158,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         when (item.itemId) {
             R.id.signIn -> {
-                val intent = Intent(this@MapsActivity, InloggningActivity::class.java)
+
+                val intent = Intent(this, InloggningActivity::class.java)
                 startActivity(intent)
             }
             R.id.signOut -> {
@@ -211,7 +255,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     }
 
     override fun onMapLongClick(p0: LatLng) {
-
+        directionOfPlaces = true
         mMap.clear()
 
         infoMaps = true
@@ -231,19 +275,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
 
     override fun onInfoWindowClick(p0: Marker) {
-       if(auth.currentUser != null){
-         if(infoMaps){
-        val intent = Intent(this, AddPlaceActivity::class.java)
-        intent.putExtra("lat",selectedLatitude)
-        intent.putExtra("long", selectedLongtitude)
-        startActivity(intent)
-    }
-       }else{
-           Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
-               val intent = Intent(this, InloggningActivity::class.java)
-               startActivity(intent)
-           }.show()
-       }
+        if(directionOfPlaces){
+            if(auth.currentUser != null){
+                if(infoMaps){
+                    val intent = Intent(this, AddPlaceActivity::class.java)
+                    intent.putExtra("lat",selectedLatitude)
+                    intent.putExtra("long", selectedLongtitude)
+                    startActivity(intent)
+                }
+            }else{
+                Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
+                    val intent = Intent(this, InloggningActivity::class.java)
+                    startActivity(intent)
+                }.show()
+            }
+        }else{
+            val intent = Intent(this, PlacesActivity::class.java)
+            intent.putExtra("lat",p0.position.latitude)
+            intent.putExtra("long", p0.position.longitude)
+            startActivity(intent)
+        }
     }
 
     override fun onMapClick(p0: LatLng) {
@@ -253,7 +304,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
 
     fun getData() {
+        mMap.clear()
+        adapter!!.addCuisine("All")
         db.collection("Places").addSnapshotListener { value, error ->
+
+
 
             if (error != null){
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
@@ -270,7 +325,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             val beskrivning = document!!.get("beskrivning") as? String
 
                             val latLong = LatLng(lat, long)
-                            mMap.addMarker(MarkerOptions().position(latLong).title("Name : $name, Land : $land, Beskrivning :$beskrivning "))
+
+
+                            adapter!!.addCuisine(land)
+
+                            if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
+                                mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
 
                         }
                     }
