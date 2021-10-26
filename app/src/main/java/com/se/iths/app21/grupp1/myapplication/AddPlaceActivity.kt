@@ -69,7 +69,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private fun savePlaces(){
 
         val places = hashMapOf<String, Any>()
-       // val rBar = findViewById<RatingBar>(R.id.rBar)
+
 
         if(auth.currentUser != null){
             places["userEmail"] = auth.currentUser!!.email!!

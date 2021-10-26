@@ -1,8 +1,16 @@
 package com.se.iths.app21.grupp1.myapplication
 
+import android.widget.ImageView
 import com.google.firebase.firestore.DocumentId
 
-class Place (@DocumentId var documentId: String? = null,
-             var name: String? = null,
-             var land: String? = null) {
+class Place (
+        var name : String? = null,
+        var land : String? = null,
+        var image : String? = null
+        )
+{
+        constructor() : this ("", "", "")
 }
+
+
+

@@ -133,7 +133,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         mMap.setOnMapLongClickListener(this)
 
         mMap.setOnInfoWindowClickListener(this)
-        mMap.setOnMapClickListener(this)
 
         getData()
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
