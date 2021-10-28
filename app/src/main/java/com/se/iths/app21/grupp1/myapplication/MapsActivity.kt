@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
 import java.util.*
@@ -290,9 +291,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                 }.show()
             }
         }else{
+            //val docId = p0.tag
             val intent = Intent(this, PlacesActivity::class.java)
-            intent.putExtra("lat",p0.position.latitude)
-            intent.putExtra("long", p0.position.longitude)
+            intent.putExtra("lat",selectedLatitude)
+            intent.putExtra("long", selectedLongtitude)
             startActivity(intent)
         }
     }
@@ -330,7 +332,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             adapter!!.addCuisine(land)
 
                             if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
-                                mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
+                               mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
 
                         }
                     }

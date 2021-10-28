@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newrecyclerview.DescriptionRecyclerAdapter
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -20,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityPlacesBinding
 import kotlinx.android.synthetic.main.activity_places.*
+import java.util.*
 
 
 class PlacesActivity : AppCompatActivity() {
@@ -32,7 +34,7 @@ class PlacesActivity : AppCompatActivity() {
     lateinit var db : FirebaseFirestore
     lateinit var storage : FirebaseStorage
     var mAdapter: DescriptionRecyclerAdapter? = null
-    lateinit var recyclerDescription: RecyclerView
+   // lateinit var recyclerDescription: RecyclerView
     lateinit var collectionRef: CollectionReference
     var TAG: String = "!!!"
     var lat : Double? = null
@@ -54,15 +56,19 @@ class PlacesActivity : AppCompatActivity() {
         recyclerDescription.adapter = mAdapter
         var comments = mutableListOf<Comments>()
 
-        val intent = intent
         val lat = intent.getDoubleExtra("lat", 0.0)
         val long = intent.getDoubleExtra("long",0.0)
+
+        Log.d("!!!", "Det funkar!")
 
         // Måste också skicka med placesId från MapsActivity
         val commentslist = intent.getStringExtra("placeId")
 
 
-        getPlacesInfo()
+
+       // val intent = Intent(this, MapsActivity::class.java)
+
+       // getPlacesInfo()
       //  getComments()
 
         binding.buttonSaveDescription.setOnClickListener {
@@ -71,7 +77,25 @@ class PlacesActivity : AppCompatActivity() {
 
     }
 
-    fun getPlacesInfo() {
+   private fun getPlacesInfo() {
+
+        val places = hashMapOf<String, Any>()
+        val comments = hashMapOf<String, Any>()
+
+        val lat = intent.getDoubleExtra("lat", 0.0)
+        val long = intent.getDoubleExtra("long",0.0)
+
+        val uuid = UUID.randomUUID()
+        val imageName = "$uuid"
+        val reference = storage.reference
+        val imageReference = reference.child("images").child(imageName)
+
+        places["name"] = binding.placeName.text.toString()
+        places["land"] = binding.showLandText.text.toString()
+        places["date"] = Timestamp.now()
+        places["rating"] = binding.showRBar.numStars
+        places["image"] = showImage.toString()
+        comments["comment"] = binding.recyclerDescription
 
         db.collection("Places").whereEqualTo("lat", lat ).whereEqualTo("long", long)
             .get()
