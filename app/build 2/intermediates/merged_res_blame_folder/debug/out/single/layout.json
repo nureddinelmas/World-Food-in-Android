@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_add_place.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/activity_add_place.xml"
+    },
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_places.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/activity_places.xml"
+    },
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/abs_layout.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/abs_layout.xml"
+    },
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_maps.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/activity_maps.xml"
+    },
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_inloggning.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/activity_inloggning.xml"
+    },
+    {
+        "merged": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/res/layout/activity_main.xml"
+    }
+]
