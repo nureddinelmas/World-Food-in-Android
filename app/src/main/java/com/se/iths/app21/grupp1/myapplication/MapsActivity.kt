@@ -41,7 +41,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
 import java.util.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnInfoWindowClickListener{
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
+    GoogleMap.OnMapClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -50,17 +51,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     private lateinit var db: FirebaseFirestore
 
-    private lateinit var locationManager : LocationManager
-    private lateinit var locationListener : LocationListener
+    private lateinit var locationManager: LocationManager
+    private lateinit var locationListener: LocationListener
 
-    private lateinit var permissionLauncher:ActivityResultLauncher<String>
+    private lateinit var permissionLauncher: ActivityResultLauncher<String>
 
     private lateinit var sharedPreferences: SharedPreferences
 
-    private var trackBoolean : Boolean? =null
+    private var trackBoolean: Boolean? = null
 
-    private var selectedLatitude : Double? = null
-    private var selectedLongtitude : Double? = null
+    private var selectedLatitude: Double? = null
+    private var selectedLongtitude: Double? = null
 
     private var infoMaps = false
 
@@ -71,10 +72,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     var isClicked = false
 
     private var directionOfPlaces = false
-
-
-
-
 
 
     @SuppressLint("RestrictedApi", "WrongConstant")
@@ -92,10 +89,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         supportActionBar?.setCustomView(R.layout.abs_layout)
         registerLauncher()
 
-        auth= FirebaseAuth.getInstance()
-        db= FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
-        sharedPreferences = this.getSharedPreferences("com.se.iths.app21.grupp1.myapplication", MODE_PRIVATE)
+        sharedPreferences =
+            this.getSharedPreferences("com.se.iths.app21.grupp1.myapplication", MODE_PRIVATE)
         trackBoolean = false
 
         selectedLatitude = 0.0
@@ -120,7 +118,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
             categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
         }
 
-        if(isClicked) {
+        if (isClicked) {
             categoryFAB.setOnClickListener {
                 categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
                 isClicked = false
@@ -133,10 +131,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         }
 
 
-
-
-
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.place_menu, menu)
@@ -182,12 +178,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         getData()
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
 
-        locationListener = object : LocationListener{
+        locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
 
                 trackBoolean = sharedPreferences.getBoolean("trackBoolean", false)
 
-                if(trackBoolean == false){
+                if (trackBoolean == false) {
                     val userLocation = LatLng(location.latitude, location.longitude)
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15f))
                     mMap.uiSettings.isZoomControlsEnabled = true
@@ -203,26 +199,46 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
-                Snackbar.make(binding.root, "Permission needed for location", Snackbar.LENGTH_INDEFINITE).setAction("Give Permission"){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            ) {
+                Snackbar.make(
+                    binding.root,
+                    "Permission needed for location",
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction("Give Permission") {
 
 
                     permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }.show()
-            }else{
+            } else {
                 permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
 
-        }else{
+        } else {
 
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0f, locationListener)
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                0,
+                0f,
+                locationListener
+            )
 
             val lastlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            if(lastlocation != null){
+            if (lastlocation != null) {
                 val lastUserLocation = LatLng(lastlocation.latitude, lastlocation.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 15f))
             }
@@ -231,27 +247,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         }
     }
 
-    private fun registerLauncher(){
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){ result ->
+    private fun registerLauncher() {
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
 
-            if(result){
-                if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0f, locationListener)
-                    val lastlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    if(lastlocation != null){
-                        val lastUserLocation = LatLng(lastlocation.latitude, lastlocation.longitude)
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 15f))
+                if (result) {
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        locationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            0,
+                            0f,
+                            locationListener
+                        )
+                        val lastlocation =
+                            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                        if (lastlocation != null) {
+                            val lastUserLocation =
+                                LatLng(lastlocation.latitude, lastlocation.longitude)
+                            mMap.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    lastUserLocation,
+                                    15f
+                                )
+                            )
+                        }
+                        mMap.isMyLocationEnabled = true
+                        mMap.uiSettings.isZoomControlsEnabled = true
                     }
-                    mMap.isMyLocationEnabled = true
-                    mMap.uiSettings.isZoomControlsEnabled = true
+
+                } else {
+                    Toast.makeText(this@MapsActivity, "Permission Needed", Toast.LENGTH_LONG).show()
                 }
 
-            }else{
-                Toast.makeText(this@MapsActivity, "Permission Needed", Toast.LENGTH_LONG).show()
+
             }
-
-
-        }
 
     }
 
@@ -260,13 +293,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         mMap.clear()
 
         infoMaps = true
-        mMap.addMarker(MarkerOptions().position(p0).title("Vill du spara den plats? Tryck här").snippet(getAddress(p0.latitude, p0.longitude)))
+        mMap.addMarker(
+            MarkerOptions().position(p0).title("Vill du spara den plats? Tryck här")
+                .snippet(getAddress(p0.latitude, p0.longitude))
+        )
 
         selectedLatitude = p0.latitude
         selectedLongtitude = p0.longitude
     }
 
-    private fun getAddress(lat: Double, lon: Double):  String?{
+    private fun getAddress(lat: Double, lon: Double): String? {
 
         val geoCoder = Geocoder(this, Locale.getDefault())
         val address = geoCoder.getFromLocation(lat, lon, 1)
@@ -274,27 +310,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     }
 
 
-
     override fun onInfoWindowClick(p0: Marker) {
-        if(directionOfPlaces){
-            if(auth.currentUser != null){
-                if(infoMaps){
+        if (directionOfPlaces) {
+            if (auth.currentUser != null) {
+                if (infoMaps) {
                     val intent = Intent(this, AddPlaceActivity::class.java)
-                    intent.putExtra("lat",selectedLatitude)
+                    intent.putExtra("lat", selectedLatitude)
                     intent.putExtra("long", selectedLongtitude)
                     startActivity(intent)
                 }
-            }else{
-                Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
-                    val intent = Intent(this, InloggningActivity::class.java)
-                    startActivity(intent)
-                }.show()
+            } else {
+                Snackbar.make(binding.root, "Please first sign in ", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Go to inloggning sida") {
+                        val intent = Intent(this, InloggningActivity::class.java)
+                        startActivity(intent)
+                    }.show()
             }
-        }else{
-            //val docId = p0.tag
+        } else {
+            val docId = p0.tag as String
             val intent = Intent(this, PlacesActivity::class.java)
-            intent.putExtra("lat",selectedLatitude)
-            intent.putExtra("long", selectedLongtitude)
+            intent.putExtra("docId", docId)
             startActivity(intent)
         }
     }
@@ -311,29 +346,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         db.collection("Places").addSnapshotListener { value, error ->
 
 
-
-            if (error != null){
+            if (error != null) {
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
-            } else{
-                if(value != null){
-                    if(!value.isEmpty){
+            } else {
+                if (value != null) {
+                    if (!value.isEmpty) {
                         val documents = value.documents
 
-                        for (document in documents){
+                        for (document in documents) {
                             val lat = document.get("lat") as Double
-                            val long= document.get("long") as Double
+                            val long = document.get("long") as Double
                             val name = document.get("name") as String
                             val land = document.get("land") as String
                             val beskrivning = document!!.get("beskrivning") as? String
+
+                            val docId = document.id
 
                             val latLong = LatLng(lat, long)
 
 
                             adapter!!.addCuisine(land)
 
-                            if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land))
-                               mMap.addMarker(MarkerOptions().position(latLong).title("$name  $land  $beskrivning "))
-
+                            if (adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(
+                                    land
+                                )
+                            ) {
+                               val marker = mMap.addMarker(
+                                    MarkerOptions().position(latLong)
+                                        .title("$name  $land  $beskrivning ")
+                                )
+                                marker.tag = docId
+                            }
                         }
                     }
                 }

@@ -56,8 +56,12 @@ class PlacesActivity : AppCompatActivity() {
         recyclerDescription.adapter = mAdapter
         var comments = mutableListOf<Comments>()
 
-        val lat = intent.getDoubleExtra("lat", 0.0)
-        val long = intent.getDoubleExtra("long",0.0)
+       // val lat = intent.getDoubleExtra("lat", 0.0)
+        //val long = intent.getDoubleExtra("long",0.0)
+
+        val docId = intent.getStringExtra("docId")
+
+        Log.d("!!!", "{$docId}")
 
         Log.d("!!!", "Det funkar!")
 
