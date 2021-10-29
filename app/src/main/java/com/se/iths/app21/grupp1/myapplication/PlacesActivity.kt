@@ -65,7 +65,7 @@ class PlacesActivity : AppCompatActivity() {
         Log.d("!!!", "Det funkar!")
 
         // Måste också skicka med placesId från MapsActivity
-        val commentslist = intent.getStringExtra("placeId")
+       // val commentslist = intent.getStringExtra("placeId")
 
 
 

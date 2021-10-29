@@ -330,9 +330,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                     }.show()
             }
         } else {
-            val docId = p0.tag as String
+
+            val place = p0.tag as Places
             val intent = Intent(this, PlacesActivity::class.java)
-            intent.putExtra("docId", docId)
+            intent.putExtra("docId", place.id)
             startActivity(intent)
         }
     }
@@ -366,20 +367,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             val beskrivning = document!!.get("beskrivning") as? String
 
                             val image = document.get("image") as? String
-                            //  val latLong = LatLng(lat, long)
                             val docId = document.id
                             placeList.add(Places(docId, name, land, beskrivning,lat, long, userEmail, image))
                             adapter!!.addCuisine(land)
-
-
-                            val docId = document.id
-
-                            val latLong = LatLng(lat, long)
-
-
-                            adapter!!.addCuisine(land)
-
-                      
                         }
 
                     }
@@ -389,8 +379,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
             for (place in placeList){
                 if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
 
-                val mark = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
-                mark!!.tag = place
+                val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
+                marker!!.tag = place
 
             val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
             mMap.setInfoWindowAdapter(placeAdapter)
@@ -399,3 +389,49 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     }}
 
+
+/*
+    fun getData() {
+        mMap.clear()
+        adapter!!.addCuisine("All")
+        db.collection("Places").addSnapshotListener { value, error ->
+            if (error != null) {
+                Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
+            } else {
+                if (value != null) {
+                    if (!value.isEmpty) {
+                        val documents = value.documents
+                        for (document in documents) {
+                            val lat = document.get("lat") as Double
+                            val long = document.get("long") as Double
+                            val name = document.get("name") as String
+                            val land = document.get("land") as String
+                            val userEmail = document.get("userEmail") as String
+                            val beskrivning = document!!.get("beskrivning") as? String
+
+                            val image = document.get("image") as? String
+
+                            val docId = document.id
+                            val latLong = LatLng(lat, long)
+
+                            placeList.add(Places(docId, name, land, beskrivning,lat, long, userEmail, image))
+
+                            adapter!!.addCuisine(land)
+
+                            for (place in placeList){
+                            if (adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land)) {
+                                val marker = mMap.addMarker(
+                                    MarkerOptions().position(latLong)
+                                        .title("$name  $land  $beskrivning ")
+                                )
+                                val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
+                                mMap.setInfoWindowAdapter(placeAdapter)
+                                marker!!.tag = place
+                            }
+                        }}
+                    }
+                }
+            }
+        }
+    }
+*/
