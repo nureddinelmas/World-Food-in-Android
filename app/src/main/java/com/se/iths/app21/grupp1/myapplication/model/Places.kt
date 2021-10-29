@@ -1,4 +1,4 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.model
 
 import android.text.format.DateFormat
 import com.google.android.gms.maps.model.LatLng

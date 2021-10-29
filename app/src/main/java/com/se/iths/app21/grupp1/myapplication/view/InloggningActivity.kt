@@ -1,17 +1,15 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.view
 
 import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.se.iths.app21.grupp1.myapplication.MapsActivity
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityInloggningBinding
 import kotlinx.android.synthetic.main.activity_add_place.*

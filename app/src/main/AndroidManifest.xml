@@ -19,16 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
-            android:name=".PlacesActivity"
+            android:name=".view.PlacesActivity"
             android:exported="true"
-            android:parentActivityName=".MapsActivity"/>
+            android:parentActivityName=".view.MapsActivity"/>
         <activity
-            android:name=".InloggningActivity"
+            android:name=".view.InloggningActivity"
             android:exported="true" />
         <activity
-            android:name=".AddPlaceActivity"
+            android:name=".view.AddPlaceActivity"
             android:exported="true"
-            android:parentActivityName=".MapsActivity"/>
+            android:parentActivityName=".view.MapsActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -40,14 +40,14 @@
 
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
-            android:name=".IntroScreen"
+            android:name=".view.IntroScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

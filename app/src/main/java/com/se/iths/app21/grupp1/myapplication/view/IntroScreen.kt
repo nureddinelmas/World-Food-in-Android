@@ -1,9 +1,10 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.se.iths.app21.grupp1.myapplication.R
 
 class IntroScreen : AppCompatActivity() {
 

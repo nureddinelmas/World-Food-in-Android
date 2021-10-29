@@ -1,23 +1,18 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.view
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Adapter
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.newrecyclerview.DescriptionRecyclerAdapter
+import com.se.iths.app21.grupp1.myapplication.adapter.DescriptionRecyclerAdapter
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.se.iths.app21.grupp1.myapplication.model.Comments
+import com.se.iths.app21.grupp1.myapplication.model.Place
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityPlacesBinding
 import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
