@@ -72,7 +72,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     var isClicked = false
 
     private var directionOfPlaces = false
-
+    private var placeList = ArrayList<Places>()
 
     @SuppressLint("RestrictedApi", "WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,8 +89,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         supportActionBar?.setCustomView(R.layout.abs_layout)
         registerLauncher()
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+
+        placeList = ArrayList<Places>()
+        auth= FirebaseAuth.getInstance()
+        db= FirebaseFirestore.getInstance()
+
 
         sharedPreferences =
             this.getSharedPreferences("com.se.iths.app21.grupp1.myapplication", MODE_PRIVATE)
@@ -339,26 +342,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         getData()
     }
 
+    private fun getData() {
 
-    fun getData() {
-        mMap.clear()
-        adapter!!.addCuisine("All")
+        directionOfPlaces = false
+
         db.collection("Places").addSnapshotListener { value, error ->
 
-
-            if (error != null) {
+            if (error != null){
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
-            } else {
-                if (value != null) {
-                    if (!value.isEmpty) {
-                        val documents = value.documents
+            } else{
 
-                        for (document in documents) {
+                if(value != null){
+                    if(!value.isEmpty){
+                        val documents = value.documents
+                        for (document in documents){
+                            // val placeList = document.toObject(Places::class.java)
+
                             val lat = document.get("lat") as Double
                             val long = document.get("long") as Double
                             val name = document.get("name") as String
                             val land = document.get("land") as String
+                            val userEmail = document.get("userEmail") as String
                             val beskrivning = document!!.get("beskrivning") as? String
+
+                            val image = document.get("image") as? String
+                            //  val latLong = LatLng(lat, long)
+                            val docId = document.id
+                            placeList.add(Places(docId, name, land, beskrivning,lat, long, userEmail, image))
+                            adapter!!.addCuisine(land)
+
 
                             val docId = document.id
 
@@ -367,20 +379,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
                             adapter!!.addCuisine(land)
 
-                            if (adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(
-                                    land
-                                )
-                            ) {
-                               val marker = mMap.addMarker(
-                                    MarkerOptions().position(latLong)
-                                        .title("$name  $land  $beskrivning ")
-                                )
-                                marker.tag = docId
-                            }
+                      
                         }
+
                     }
                 }
             }
+
+            for (place in placeList){
+                if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
+
+                val mark = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
+                mark!!.tag = place
+
+            val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
+            mMap.setInfoWindowAdapter(placeAdapter)
+        }}
         }
-    }
-}
+
+    }}
+
