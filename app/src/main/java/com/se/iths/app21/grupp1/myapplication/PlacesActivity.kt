@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newrecyclerview.DescriptionRecyclerAdapter
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
