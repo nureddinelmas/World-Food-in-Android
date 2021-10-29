@@ -1,14 +1,15 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.se.iths.app21.grupp1.myapplication.model.Cuisine
+import com.se.iths.app21.grupp1.myapplication.CuisineSelectListener
+import com.se.iths.app21.grupp1.myapplication.R
 
 
 class CuisinesRecycleAdapter(val context: Context) :

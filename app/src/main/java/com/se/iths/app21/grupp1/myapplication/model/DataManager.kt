@@ -1,5 +1,7 @@
 package com.se.iths.app21.grupp1.myapplication
 
+import com.se.iths.app21.grupp1.myapplication.model.Cuisine
+
 
 object Datamanager {
     val cuisines = mutableListOf<Cuisine>()

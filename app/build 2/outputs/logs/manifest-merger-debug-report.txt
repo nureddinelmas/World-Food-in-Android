@@ -191,7 +191,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/sann
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:15:9-35
 	android:theme
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:20:9-47
-activity#com.se.iths.app21.grupp1.myapplication.PlacesActivity
+activity#com.se.iths.app21.grupp1.myapplication.view.PlacesActivity
 ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:21:9-24:57
 	android:parentActivityName
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:24:13-55
@@ -199,13 +199,13 @@ ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/Andro
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:23:13-36
 	android:name
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:22:13-43
-activity#com.se.iths.app21.grupp1.myapplication.InloggningActivity
+activity#com.se.iths.app21.grupp1.myapplication.view.InloggningActivity
 ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:25:9-27:39
 	android:exported
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:27:13-36
 	android:name
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:26:13-47
-activity#com.se.iths.app21.grupp1.myapplication.AddPlaceActivity
+activity#com.se.iths.app21.grupp1.myapplication.view.AddPlaceActivity
 ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:28:9-31:57
 	android:parentActivityName
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:31:13-55
@@ -213,7 +213,7 @@ ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/Andro
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:30:13-36
 	android:name
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:29:13-45
-activity#com.se.iths.app21.grupp1.myapplication.MapsActivity
+activity#com.se.iths.app21.grupp1.myapplication.view.MapsActivity
 ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:42:9-45:58
 	android:label
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:45:13-56
@@ -227,7 +227,7 @@ ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/Andro
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:48:13-52
 	android:name
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:47:13-58
-activity#com.se.iths.app21.grupp1.myapplication.MainActivity
+activity#com.se.iths.app21.grupp1.myapplication.view.MainActivity
 ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:49:9-57:20
 	android:exported
 		ADDED from /Users/sannajohansson/Desktop/IT skolan/World-Food/app/src/main/AndroidManifest.xml:51:13-36

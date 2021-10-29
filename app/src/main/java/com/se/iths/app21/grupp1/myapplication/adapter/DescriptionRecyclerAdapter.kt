@@ -1,20 +1,13 @@
-package com.example.newrecyclerview
+package com.se.iths.app21.grupp1.myapplication.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.se.iths.app21.grupp1.myapplication.Comments
-import com.se.iths.app21.grupp1.myapplication.Place
-import com.se.iths.app21.grupp1.myapplication.PlacesActivity
+import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.R
-import kotlinx.android.synthetic.main.activity_places.view.*
 import kotlinx.android.synthetic.main.item_list.view.*
 
 class DescriptionRecyclerAdapter(val context: Context, val comment : List<Comments>) :

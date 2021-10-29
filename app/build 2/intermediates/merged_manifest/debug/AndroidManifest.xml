@@ -39,16 +39,16 @@
         android:testOnly="true"
         android:theme="@style/Theme.AppCompat" >
         <activity
-            android:name="com.se.iths.app21.grupp1.myapplication.PlacesActivity"
+            android:name="com.se.iths.app21.grupp1.myapplication.view.PlacesActivity"
             android:exported="true"
-            android:parentActivityName="com.se.iths.app21.grupp1.myapplication.MapsActivity" />
+            android:parentActivityName="com.se.iths.app21.grupp1.myapplication.view.MapsActivity" />
         <activity
-            android:name="com.se.iths.app21.grupp1.myapplication.InloggningActivity"
+            android:name="com.se.iths.app21.grupp1.myapplication.view.InloggningActivity"
             android:exported="true" />
         <activity
-            android:name="com.se.iths.app21.grupp1.myapplication.AddPlaceActivity"
+            android:name="com.se.iths.app21.grupp1.myapplication.view.AddPlaceActivity"
             android:exported="true"
-            android:parentActivityName="com.se.iths.app21.grupp1.myapplication.MapsActivity" />
+            android:parentActivityName="com.se.iths.app21.grupp1.myapplication.view.MapsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,7 +59,7 @@
         -->
 
         <activity
-            android:name="com.se.iths.app21.grupp1.myapplication.MapsActivity"
+            android:name="com.se.iths.app21.grupp1.myapplication.view.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
 
@@ -68,7 +68,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.se.iths.app21.grupp1.myapplication.MainActivity"
+            android:name="com.se.iths.app21.grupp1.myapplication.view.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

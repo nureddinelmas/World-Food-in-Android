@@ -1,18 +1,15 @@
-package com.se.iths.app21.grupp1.myapplication
+package com.se.iths.app21.grupp1.myapplication.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
-
-import kotlinx.android.synthetic.main.activity_places.*
+import com.se.iths.app21.grupp1.myapplication.R
+import com.se.iths.app21.grupp1.myapplication.model.Places
 
 class PlaceInfoAdapter (val context: Context) : GoogleMap.InfoWindowAdapter{
 
