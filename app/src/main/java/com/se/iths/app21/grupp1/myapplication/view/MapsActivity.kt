@@ -20,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.se.iths.app21.grupp1.myapplication.CuisineSelectListener
 import com.se.iths.app21.grupp1.myapplication.adapter.CuisinesRecycleAdapter
 import com.se.iths.app21.grupp1.myapplication.adapter.PlaceInfoAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Places

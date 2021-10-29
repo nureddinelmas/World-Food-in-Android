@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.R
+import com.se.iths.app21.grupp1.myapplication.model.Comments
 import kotlinx.android.synthetic.main.item_list.view.*
 
 class DescriptionRecyclerAdapter(val context: Context, val comment : List<Comments>) :

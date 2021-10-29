@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.se.iths.app21.grupp1.myapplication.model.Cuisine
 import com.se.iths.app21.grupp1.myapplication.CuisineSelectListener
 import com.se.iths.app21.grupp1.myapplication.R
+import com.se.iths.app21.grupp1.myapplication.model.Cuisine
 
 
 class CuisinesRecycleAdapter(val context: Context) :
