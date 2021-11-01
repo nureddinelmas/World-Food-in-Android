@@ -14,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.model.Place
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityPlacesBinding
+import com.se.iths.app21.grupp1.myapplication.model.Places
 import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
 
@@ -66,7 +67,7 @@ class PlacesActivity : AppCompatActivity() {
 
        // val intent = Intent(this, MapsActivity::class.java)
 
-       // getPlacesInfo()
+        getPlacesInfo()
       //  getComments()
 
         binding.buttonSaveDescription.setOnClickListener {
@@ -77,42 +78,63 @@ class PlacesActivity : AppCompatActivity() {
 
    private fun getPlacesInfo() {
 
-        val places = hashMapOf<String, Any>()
-        val comments = hashMapOf<String, Any>()
+       val docId = intent.getStringExtra("docId")
+      // val places = hashMapOf<String, Any>()
+      // val comments = hashMapOf<String, Any>()
 
-        val lat = intent.getDoubleExtra("lat", 0.0)
-        val long = intent.getDoubleExtra("long",0.0)
+       val uuid = UUID.randomUUID()
+       val imageName = "$uuid"
+       val reference = storage.reference
+       val imageReference = reference.child("images").child(imageName)
 
-        val uuid = UUID.randomUUID()
-        val imageName = "$uuid"
-        val reference = storage.reference
-        val imageReference = reference.child("images").child(imageName)
 
-        places["name"] = binding.placeName.text.toString()
-        places["land"] = binding.showLandText.text.toString()
-        places["date"] = Timestamp.now()
-        places["rating"] = binding.showRBar.numStars
-        places["image"] = showImage.toString()
-        comments["comment"] = binding.recyclerDescription
+       if (docId != null) {
+           db.collection("Places").document(docId)
+               .get()
+               .addOnSuccessListener {  task ->
+                   if (task != null)
+                        {
+                            val place = task.toObject(Places::class.java)
+                            binding.placeName.text = place!!.name
+                            binding.showLandText.text = place!!.land
+                           // binding.showRBar.numStars = place!!.rating
+                           /* places["land"] = binding.showLandText.text.toString()
+                            places["date"] = Timestamp.now()
+                            places["rating"] = binding.showRBar.numStars
+                            places["image"] = showImage.toString()
+                            comments["comment"] = binding.recyclerDescription
 
-        db.collection("Places").whereEqualTo("lat", lat ).whereEqualTo("long", long)
-            .get()
-            .addOnSuccessListener {
+                            */
 
-                if (it.isEmpty) {
-                    Toast.makeText(this, "No place found", Toast.LENGTH_LONG).show()
-                    return@addOnSuccessListener
-                }
+                        }
 
-                    for (document in it) {
-                       val placeModel = document.toObject(Place::class.java)
-                        placeslist.add(placeModel)
-                        Log.d("!!!", "Document: $document")
-                    }
-                }
-            }
+               }
+       }
+   }
 
-  /*  fun getComments() {
+       /* db.collection("Places").document("docId")
+.get()
+.addOnSuccessListener {
+
+if (it.isEmpty) {
+    Toast.makeText(this, "No place found", Toast.LENGTH_LONG).show()
+    return@addOnSuccessListener
+}
+
+
+
+    for (document in it) {
+       val placeModel = document.toObject(Place::class.java)
+        placeslist.add(placeModel)
+        Log.d("!!!", "Document: $document")
+    }
+
+}
+
+*/
+
+
+                   /*  fun getComments() {
 
         db.collection("Comments").whereEqualTo("placeId", placeId)
             .get()
@@ -136,19 +158,20 @@ class PlacesActivity : AppCompatActivity() {
 
 
 
-    fun saveDescription() {
-        val places = hashMapOf<String, Any>()
+                   fun saveDescription() {
+                       val places = hashMapOf<String, Any>()
 
-        if(auth.currentUser != null) {
-            places["beskrivning"] = binding.addDescriptionText.text.toString()
+                       if (auth.currentUser != null) {
+                           places["beskrivning"] = binding.addDescriptionText.text.toString()
 
-            db.collection("Places" ).add(places).addOnSuccessListener {
-                finish()
-            }.addOnFailureListener {
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
+                           db.collection("Places").add(places).addOnSuccessListener {
+                               finish()
+                           }.addOnFailureListener {
+                               Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                           }
+                       }
+                   }
+               }
 
 
-    }
+
