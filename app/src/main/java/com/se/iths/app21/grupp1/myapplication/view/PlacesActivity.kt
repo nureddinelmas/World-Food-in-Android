@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.se.iths.app21.grupp1.myapplication.adapter.DescriptionRecyclerAdapter
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,7 @@ import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.model.Place
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityPlacesBinding
 import com.se.iths.app21.grupp1.myapplication.model.Places
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
 
@@ -97,6 +99,32 @@ class PlacesActivity : AppCompatActivity() {
                             val place = task.toObject(Places::class.java)
                             binding.placeName.text = place!!.name
                             binding.showLandText.text = place!!.land
+
+
+
+                                        db.collection("Places").document(docId)
+                                            .get()
+                                            .addOnCompleteListener {
+                                                if (task != null)
+                                                {
+
+                                                val result: StringBuffer = StringBuffer()
+
+
+
+                                                if(it.isSuccessful) {
+
+                                                        var url = result.append(it.result!!.data!!.getValue("image")).toString()
+                                                        Log.d("!!!", "$url, hello")
+                                                        Picasso.get().load(url).into(showImage)
+
+
+
+                                                }
+                                                }
+                                            }
+
+
                            // binding.showRBar.numStars = place!!.rating
                            /* places["land"] = binding.showLandText.text.toString()
                             places["date"] = Timestamp.now()
