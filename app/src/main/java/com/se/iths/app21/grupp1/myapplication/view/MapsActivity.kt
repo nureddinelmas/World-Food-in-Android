@@ -178,6 +178,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         mMap.setOnInfoWindowClickListener(this)
 
+        mMap.setOnMapClickListener(this)
+
         getData()
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
 
@@ -233,12 +235,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         } else {
 
 
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                0,
-                0f,
-                locationListener
-            )
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
 
             val lastlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (lastlocation != null) {
