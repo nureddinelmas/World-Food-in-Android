@@ -165,9 +165,6 @@ fun addComment(view: View){
     }
 }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+
 
 }
