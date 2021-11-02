@@ -357,19 +357,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                     if(!value.isEmpty){
                         val documents = value.documents
                         for (document in documents){
-                            // val placeList = document.toObject(Places::class.java)
+                            val place = document.toObject(Places::class.java)
 
-                            val lat = document.get("lat") as Double
-                            val long = document.get("long") as Double
-                            val name = document.get("name") as String
-                            val land = document.get("land") as String
-                            val userEmail = document.get("userEmail") as String
-                            val beskrivning = document!!.get("beskrivning") as? String
-
-                            val image = document.get("image") as? String
-                            val docId = document.id
-                            placeList.add(Places(docId, name, land, beskrivning,lat, long, userEmail, image))
-                            adapter!!.addCuisine(land)
+                            placeList.add(Places(place!!.id, place.name, place.land, place.beskrivning,place.lat, place.long, place.userEmail, place.image))
+                            place.land?.let { adapter!!.addCuisine(it) }
                         }
 
                     }
@@ -389,49 +380,3 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     }}
 
-
-/*
-    fun getData() {
-        mMap.clear()
-        adapter!!.addCuisine("All")
-        db.collection("Places").addSnapshotListener { value, error ->
-            if (error != null) {
-                Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
-            } else {
-                if (value != null) {
-                    if (!value.isEmpty) {
-                        val documents = value.documents
-                        for (document in documents) {
-                            val lat = document.get("lat") as Double
-                            val long = document.get("long") as Double
-                            val name = document.get("name") as String
-                            val land = document.get("land") as String
-                            val userEmail = document.get("userEmail") as String
-                            val beskrivning = document!!.get("beskrivning") as? String
-
-                            val image = document.get("image") as? String
-
-                            val docId = document.id
-                            val latLong = LatLng(lat, long)
-
-                            placeList.add(Places(docId, name, land, beskrivning,lat, long, userEmail, image))
-
-                            adapter!!.addCuisine(land)
-
-                            for (place in placeList){
-                            if (adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(land)) {
-                                val marker = mMap.addMarker(
-                                    MarkerOptions().position(latLong)
-                                        .title("$name  $land  $beskrivning ")
-                                )
-                                val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
-                                mMap.setInfoWindowAdapter(placeAdapter)
-                                marker!!.tag = place
-                            }
-                        }}
-                    }
-                }
-            }
-        }
-    }
-*/
