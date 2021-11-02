@@ -32,6 +32,7 @@ class InloggningActivity : AppCompatActivity() {
         binding = ActivityInloggningBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
