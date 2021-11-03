@@ -1,7 +1,10 @@
 package com.se.iths.app21.grupp1.myapplication.model
 
-class Comments (
 
-    var comments: String? = null
-
-        )
+data class Comments(
+    var name: String? = null,
+    var comment: String? = null,
+    var placeId: String? = null,
+    var date: String? = null
+) {
+}
