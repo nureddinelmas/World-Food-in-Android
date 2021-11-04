@@ -5,6 +5,6 @@ data class Comments(
     var name: String? = null,
     var comment: String? = null,
     var placeId: String? = null,
-    var date: String? = null
+    var rating: Double? = 0.0
 ) {
 }
