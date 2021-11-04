@@ -89,6 +89,7 @@ class AddPlaceActivity : AppCompatActivity() {
         val reference = storage.reference
         val imageReference = reference.child("images").child(imageName)
 
+
         if (auth.currentUser != null && selectedPicture != null) {
 
             imageReference.putFile(selectedPicture!!).addOnSuccessListener {
@@ -101,6 +102,7 @@ class AddPlaceActivity : AppCompatActivity() {
                     }
                     imageReference.downloadUrl
                 }.addOnCompleteListener { task ->
+
                     if (task.isSuccessful) {
                         val downloadUri = task.result
                         places["userEmail"] = auth.currentUser!!.email!!
@@ -114,10 +116,14 @@ class AddPlaceActivity : AppCompatActivity() {
                         places["image"] = downloadUri.toString()
 
                         db.collection("Places").add(places).addOnSuccessListener {
+
+                            // 4
+
                             finish()
                         }.addOnFailureListener {
                             Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
                         }
+                    // 6
                     } else {
                         // Handle failures
                         // ...
@@ -129,7 +135,7 @@ class AddPlaceActivity : AppCompatActivity() {
 
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
-
+// 5
         }
     }
 

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_color"
@@ -120,12 +123,12 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/edittext_layout"
         android:text="Add Comment"
-        app:layout_constraintBottom_toTopOf="@+id/commentButton"
+        app:layout_constraintBottom_toTopOf="@+id/saveCommentButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/commentButton"
+        android:id="@+id/saveCommentButton"
         android:layout_width="179dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
@@ -147,5 +150,18 @@
         app:layout_constraintTop_toBottomOf="@+id/card_view"
         tools:listitem="@layout/comment_row_layout" />
 
-
+    <RatingBar
+        android:id="@+id/commentRatingBar"
+        style="@style/Widget.AppCompat.RatingBar"
+        android:layout_width="296dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="18dp"
+        android:numStars="5"
+        app:layout_constraintBottom_toTopOf="@+id/commentText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentRecyclerView"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

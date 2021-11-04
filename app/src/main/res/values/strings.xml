@@ -3,4 +3,6 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="googleMapsKey">AIzaSyD4OuA5dDcyYEl_3JQx8WsZDwQOeycNXZ8</string>
     <string name="no_image">No Image</string>
-    </resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

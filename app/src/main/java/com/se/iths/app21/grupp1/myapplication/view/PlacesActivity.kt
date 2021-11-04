@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
 
 
-class PlacesActivity : AppCompatActivity() {
+class PlacesActivity : AppCompatActivity(){
 
     lateinit var binding: ActivityPlacesBinding
 
@@ -66,8 +66,9 @@ class PlacesActivity : AppCompatActivity() {
             commentList = ArrayList<Comments>()
 
             commentText.visibility= View.GONE
-            commentButton.visibility = View.GONE
+            saveCommentButton.visibility = View.GONE
             cancelButton.visibility = View.GONE
+            commentRatingBar.visibility = View.GONE
 
             getUserData()
 
@@ -75,7 +76,7 @@ class PlacesActivity : AppCompatActivity() {
         }else{
 
             commentText.visibility= View.GONE
-            commentButton.visibility = View.GONE
+            saveCommentButton.visibility = View.GONE
             cancelButton.visibility = View.GONE
             addCommentButton.visibility = View.GONE
             Snackbar.make(binding.root, "Please first sign in to type a comment ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
@@ -97,17 +98,22 @@ class PlacesActivity : AppCompatActivity() {
         commentRecyclerView.adapter = commentAdapter
         getCommentsData()
 
-        addCommentButton.setOnClickListener {
+      addCommentButton.setOnClickListener {
+            commentRecyclerView.visibility = View.GONE
             commentText.visibility= View.VISIBLE
             addCommentButton.visibility = View.GONE
-            commentButton.visibility = View.VISIBLE
+            saveCommentButton.visibility = View.VISIBLE
             cancelButton.visibility = View.VISIBLE
+            commentRatingBar.visibility = View.VISIBLE
         }
 
         cancelButton.setOnClickListener {
+
+            commentRecyclerView.visibility = View.VISIBLE
             commentText.visibility= View.GONE
+            commentRatingBar.visibility = View.GONE
             addCommentButton.visibility = View.VISIBLE
-            commentButton.visibility = View.GONE
+            saveCommentButton.visibility = View.GONE
             cancelButton.visibility = View.GONE
         }
 
@@ -164,14 +170,18 @@ fun addComment(view: View){
         comments["userName"] = userName.toString()
         comments["email"] = auth.currentUser!!.email.toString()
         comments["date"] = Timestamp.now()
+        comments["rating"] = commentRatingBar.rating.toDouble()
 
         db.collection("Comments").add(comments).addOnSuccessListener {
             Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
 
+            commentRecyclerView.visibility = View.VISIBLE
             commentText.visibility= View.GONE
             addCommentButton.visibility = View.VISIBLE
-            commentButton.visibility = View.GONE
+            saveCommentButton.visibility = View.GONE
             cancelButton.visibility = View.GONE
+            commentRatingBar.visibility = View.GONE
+            commentRatingBar.rating = 0.0F
             commentText.setText("")
 
         }.addOnFailureListener {
