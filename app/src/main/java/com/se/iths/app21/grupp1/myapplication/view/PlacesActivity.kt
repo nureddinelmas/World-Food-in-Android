@@ -154,25 +154,32 @@ fun addComment(view: View){
 
     val comments = hashMapOf<String, Any>()
 
-    comments["comment"] = commentText.text.toString()
-    comments["userDocumentId"] = userDocumentId.toString()
-    comments["placeId"] = docId.toString()
-    comments["userName"] = userName.toString()
-    comments["email"] = auth.currentUser!!.email.toString()
-    comments["date"] = Timestamp.now()
+    if (userDocumentId == null || docId == null || userDocumentId == null){
+        Toast.makeText(this, "något gick fel!", Toast.LENGTH_LONG).show()
+    }else{
 
-    db.collection("Comments").add(comments).addOnSuccessListener {
-        Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
+        comments["comment"] = commentText.text.toString()
+        comments["userDocumentId"] = userDocumentId.toString()
+        comments["placeId"] = docId.toString()
+        comments["userName"] = userName.toString()
+        comments["email"] = auth.currentUser!!.email.toString()
+        comments["date"] = Timestamp.now()
 
-        commentText.visibility= View.GONE
-        addCommentButton.visibility = View.VISIBLE
-        commentButton.visibility = View.GONE
-        cancelButton.visibility = View.GONE
-        commentText.setText("")
+        db.collection("Comments").add(comments).addOnSuccessListener {
+            Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
 
-    }.addOnFailureListener {
-        Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+            commentText.visibility= View.GONE
+            addCommentButton.visibility = View.VISIBLE
+            commentButton.visibility = View.GONE
+            cancelButton.visibility = View.GONE
+            commentText.setText("")
+
+        }.addOnFailureListener {
+            Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+        }
     }
+
+
 }
 
 
@@ -196,10 +203,6 @@ fun addComment(view: View){
 
                         val commentAdd = Comments(nameH, comment, placeId)
                         commentList.add(commentAdd)
-
-                        for (i in commentList){
-                            println(i.comment)
-                        }
                     }
                     commentAdapter!!.notifyDataSetChanged()
                 }
