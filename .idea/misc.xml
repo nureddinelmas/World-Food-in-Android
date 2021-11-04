@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/zanna/Documents/Skola/AndroidStudio/World-Food/app/src/main/res/layout/activity_add_place.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/zanna/Documents/Skola/AndroidStudio/World-Food/app/src/main/res/layout/activity_inloggning.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/zanna/Documents/Skola/AndroidStudio/World-Food/app/src/main/res/layout/activity_intro_screen.xml" value="0.12183383991894631" />
         <entry key="app/src/main/res/drawable-v24/ic_rectangle_grad.xml" value="0.23148148148148148" />
         <entry key="app/src/main/res/drawable-v24/ic_ui_grad.xml" value="0.23148148148148148" />
         <entry key="app/src/main/res/drawable/background_color.xml" value="0.23148148148148148" />

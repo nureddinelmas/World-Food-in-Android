@@ -367,12 +367,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
             for (place in placeList){
                 if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
 
-                val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
-                marker!!.tag = place
+                    val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
+                    marker!!.tag = place
 
-            val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
-            mMap.setInfoWindowAdapter(placeAdapter)
-        }}
+                    val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
+                    mMap.setInfoWindowAdapter(placeAdapter)
+                }}
         }
 
     }}
