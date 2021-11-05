@@ -31,12 +31,10 @@ class ListViewAdapter(private var placeList : ArrayList<Places>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
        holder.binding.textNameAndLand.text = placeFilterList[position].name + " / " +placeFilterList[position].land
-        Glide.with(holder.itemView.context).load(placeFilterList[position].image).into(holder.binding.selectImageListView)
+        Glide.with(holder.itemView.context).load(placeFilterList[position].image.toString()).into(holder.binding.selectImageListView)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, MapsActivity::class.java)
-           // intent.putExtra("lat", placeFilterList[position].lat)
-            // intent.putExtra("long", placeFilterList[position].long)
             intent.putExtra("doc", placeFilterList[position].id)
             intent.putExtra("position", "new")
             holder.itemView.context.startActivity(intent)

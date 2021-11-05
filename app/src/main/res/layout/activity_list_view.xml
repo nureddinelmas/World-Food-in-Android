@@ -9,8 +9,9 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="67dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

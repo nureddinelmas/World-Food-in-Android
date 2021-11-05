@@ -46,6 +46,8 @@ class PlacesActivity : AppCompatActivity(){
     private var commentList = ArrayList<Comments>()
     private lateinit var commentAdapter : CommentRecyclerAdapter
 
+    var totalRatingBar : Float? = 0f
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,6 +141,7 @@ class PlacesActivity : AppCompatActivity(){
                             supportActionBar?.title= place!!.name!!.toUpperCase() + " RESTAURANGEN "
                             landPlacesTextListView.text = place!!.land
                             beskrivningPlacesText.text = place.beskrivning
+
                              db.collection("Places").document(docId!!)
                                  .get()
                                  .addOnCompleteListener {
@@ -170,7 +173,7 @@ fun addComment(view: View){
         comments["userName"] = userName.toString()
         comments["email"] = auth.currentUser!!.email.toString()
         comments["date"] = Timestamp.now()
-        comments["rating"] = commentRatingBar.rating.toDouble()
+        comments["rating"] = commentRatingBar.rating.toString()
 
         db.collection("Comments").add(comments).addOnSuccessListener {
             Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
@@ -210,14 +213,20 @@ fun addComment(view: View){
                         val comment = document.get("comment") as String
                         val nameH = document.get("userName") as String
                         val placeId = document.get("placeId") as String
+                        val ratingBar = document.get("rating") as String
 
-                        val commentAdd = Comments(nameH, comment, placeId)
+
+                        val commentAdd = Comments(nameH, comment, placeId, ratingBar)
                         commentList.add(commentAdd)
+
                     }
                     commentAdapter!!.notifyDataSetChanged()
                 }
             }
+
+
         }
+
     }
 
 

@@ -10,6 +10,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.model.Places
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_places.*
 
 class PlaceInfoAdapter (val context: Context) : GoogleMap.InfoWindowAdapter{
 
@@ -26,19 +28,14 @@ class PlaceInfoAdapter (val context: Context) : GoogleMap.InfoWindowAdapter{
         val textName = infoWindow.findViewById<TextView>(R.id.textName)
         val textLand = infoWindow.findViewById<TextView>(R.id.textLand)
 
-
-
-
         if (marker.tag != null){
             val place = marker!!.tag as Places
             textName.text = place.name
             textLand.text = place.land
 
             if(place.image != null){
-                Glide.with(context).load(place.image).into(placeImage)
+                Glide.with(context).load(place.image.toString()).into(placeImage)
             }
-
-
 
         }else{
             textName.text = "Vill du spara den här platsen ?"

@@ -10,9 +10,10 @@
         android:id="@+id/placeImageView"
         android:layout_width="139dp"
         android:layout_height="114dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/fui_ic_yahoo_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_dialer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textName"

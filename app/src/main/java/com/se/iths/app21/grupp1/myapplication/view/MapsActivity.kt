@@ -370,7 +370,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                         for (document in documents){
                             val place = document.toObject(Places::class.java)
 
-                            placeList.add(Places(place!!.id, place.name, place.land, place.beskrivning,place.lat, place.long, place.userEmail, place.image))
+                            placeList.add(Places(place!!.id, place.name, place.land, place.beskrivning,place.lat, place.long, place.userEmail, place.image.toString()))
                             place.land?.let { adapter!!.addCuisine(it) }
                         }
 
@@ -396,7 +396,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             marker!!.tag = place
                         }
                     }
-                    //pos = null
                 }
                 if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
 
