@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -39,6 +40,7 @@ import com.se.iths.app21.grupp1.myapplication.adapter.PlaceInfoAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Places
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
+import com.se.iths.app21.grupp1.myapplication.model.DataManagerPlacesDescriptions.place
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
@@ -95,6 +97,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         db= FirebaseFirestore.getInstance()
 
 
+        val intent = intent
+
+
         sharedPreferences =
             this.getSharedPreferences("com.se.iths.app21.grupp1.myapplication", MODE_PRIVATE)
         trackBoolean = false
@@ -116,6 +121,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         val categoryFAB = binding.categoryFloatingActionButton
         val categoryRecyclerView = binding.recyclerView
+
+        binding.ListViewImageView.setOnClickListener {
+            val intent = Intent(this, ListViewActivity::class.java)
+            startActivity(intent)
+        }
+
 
         categoryFAB.setOnClickListener {
             categoryRecyclerView.isVisible = !categoryRecyclerView.isVisible
@@ -181,6 +192,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         mMap.setOnMapClickListener(this)
 
         getData()
+
+
+
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
 
         locationListener = object : LocationListener {
@@ -364,7 +378,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                 }
             }
 
+            val intent = intent
+            var pos = intent.getStringExtra("position")
             for (place in placeList){
+
+                if(pos == "new"){
+                    println(pos)
+                    mMap.clear()
+                    val doc = intent.getStringExtra("doc")
+
+                    for(place in placeList){
+
+                        if (place.id == doc){
+                            val loc = LatLng(place.lat!!.toDouble(), place.long!!.toDouble())
+                          val marker = mMap.addMarker(MarkerOptions().position(loc))
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
+                            marker!!.tag = place
+                        }
+                    }
+                    //pos = null
+                }
                 if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
 
                     val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))

@@ -21,15 +21,10 @@ class CommentRecyclerAdapter(private val commentList: ArrayList<Comments>) : Rec
     }
 
     override fun onBindViewHolder(holder: CommentHolder, position: Int) {
-        if (commentList.isEmpty()){
-            holder.binding.commentsText.text = "Ingen comment finns"
-        }else{
+
             holder.binding.ratingBarComment.rating = commentList[position].rating!!.toFloat()
             holder.binding.commentsText.text = commentList[position].comment
             holder.binding.commentNameText.text = commentList[position].name + "  säger : "
-        }
-
-
     }
 
     override fun getItemCount() = commentList.size
