@@ -137,7 +137,7 @@ class PlacesActivity : AppCompatActivity(){
                         {
                             val place = task.toObject(Places::class.java)
                             supportActionBar?.title= place!!.name!!.toUpperCase() + " RESTAURANGEN "
-                            landPlacesText.text = place!!.land
+                            landPlacesTextListView.text = place!!.land
                             beskrivningPlacesText.text = place.beskrivning
                              db.collection("Places").document(docId!!)
                                  .get()

@@ -8,8 +8,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,16 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
+            android:name=".view.ListViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.PlacesActivity"
             android:exported="true"
-            android:parentActivityName=".view.MapsActivity"/>
+            android:parentActivityName=".view.MapsActivity" />
         <activity
             android:name=".view.InloggningActivity"
             android:exported="true" />
         <activity
             android:name=".view.AddPlaceActivity"
             android:exported="true"
-            android:parentActivityName=".view.MapsActivity"/>
+            android:parentActivityName=".view.MapsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,15 +40,15 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
-
         <activity
             android:name=".view.MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps"/>
+            android:label="@string/title_activity_maps" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".view.IntroScreen"
             android:exported="true">
