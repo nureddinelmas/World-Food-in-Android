@@ -49,13 +49,14 @@ class PlacesActivity : AppCompatActivity(){
     private var commentList = ArrayList<Comments>()
     private lateinit var commentAdapter : CommentRecyclerAdapter
 
-    var totalRatingBar : Float? = 0f
+    var averageRatingBar = 0f
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         db = FirebaseFirestore.getInstance()
@@ -66,6 +67,8 @@ class PlacesActivity : AppCompatActivity(){
         actionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+
         val currentUser = auth.currentUser
         if (currentUser != null){
             commentList = ArrayList<Comments>()
@@ -74,10 +77,7 @@ class PlacesActivity : AppCompatActivity(){
             saveCommentButton.gone()
             cancelButton.gone()
             commentRatingBar.gone()
-
             getUserData()
-
-
         }else{
 
             commentText.gone()
@@ -92,7 +92,8 @@ class PlacesActivity : AppCompatActivity(){
 
          docId = intent.getStringExtra("docId")
 
-        getPlacesInfo()
+        getAverageRatingBar()
+
 
 
         commentRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -137,6 +138,10 @@ class PlacesActivity : AppCompatActivity(){
                             landPlacesTextListView.text = place!!.land
                             beskrivningPlacesText.text = place.beskrivning
                             Picasso.get().load(place.image).into(selectImage)
+
+                            ratingBarPlaces.rating = averageRatingBar
+                            println("average 2 -> $averageRatingBar")
+
                         }
                }
        }
@@ -206,15 +211,11 @@ fun addComment(view: View){
 
                         val commentAdd = Comments(nameH, comment, placeId, ratingBar)
                         commentList.add(commentAdd)
-
                     }
                     commentAdapter!!.notifyDataSetChanged()
                 }
             }
-
-
         }
-
     }
 
 
@@ -247,6 +248,32 @@ fun addComment(view: View){
         }
 
 
+    }
+
+    private fun getAverageRatingBar(){
+        var oneRating = 0f
+        var totalRating = 0f
+        var antal = 0
+
+        db.collection("Comments").whereEqualTo("placeId", docId).addSnapshotListener { value, error ->
+            totalRating = 0f
+            antal = 0
+            getPlacesInfo()
+            val documents = value!!.documents
+
+            documents.forEach {
+                val rating = it.get("rating")
+
+                oneRating = rating.toString().toFloat()
+
+                totalRating += oneRating
+                antal ++
+            }
+            averageRatingBar = totalRating / antal
+            println("totalRating -> $totalRating")
+            println("antal -> $antal")
+            println("average 1 -> $averageRatingBar")
+        }
     }
 
 }
