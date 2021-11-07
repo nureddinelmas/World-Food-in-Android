@@ -213,8 +213,7 @@ fun addComment(view: View){
                         val comment = document.get("comment") as String
                         val nameH = document.get("userName") as String
                         val placeId = document.get("placeId") as String
-                        val ratingBar = document.get("rating") as String
-
+                        val ratingBar = document.get("rating") as? String
 
                         val commentAdd = Comments(nameH, comment, placeId, ratingBar)
                         commentList.add(commentAdd)

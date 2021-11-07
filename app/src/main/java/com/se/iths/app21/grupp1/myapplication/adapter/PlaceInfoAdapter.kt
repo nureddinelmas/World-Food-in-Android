@@ -33,9 +33,8 @@ class PlaceInfoAdapter (val context: Context) : GoogleMap.InfoWindowAdapter{
             textName.text = place.name
             textLand.text = place.land
 
-            if(place.image != null){
-                Glide.with(context).load(place.image.toString()).into(placeImage)
-            }
+            Glide.with(this.context).load(place.image.toString()).into(placeImage)
+
 
         }else{
             textName.text = "Vill du spara den här platsen ?"

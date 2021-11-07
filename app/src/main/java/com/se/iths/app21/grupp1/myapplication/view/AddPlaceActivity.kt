@@ -112,21 +112,15 @@ class AddPlaceActivity : AppCompatActivity() {
                         places["long"] = long!!.toDouble()
                         places["beskrivning"] = binding.beskrivningText.text.toString()
                         places["date"] = Timestamp.now()
-                        places["rating"] = binding.rBar.rating.toDouble()
+                        places["rating"] = binding.rBar.rating.toString()
                         places["image"] = downloadUri.toString()
 
                         db.collection("Places").add(places).addOnSuccessListener {
-
-                            // 4
-
                             finish()
                         }.addOnFailureListener {
                             Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
                         }
-                    // 6
-                    } else {
-                        // Handle failures
-                        // ...
+
                     }
                 }
 

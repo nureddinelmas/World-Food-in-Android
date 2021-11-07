@@ -3,17 +3,12 @@ package com.se.iths.app21.grupp1.myapplication.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.adapter.ListViewAdapter
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityListViewBinding
-import com.se.iths.app21.grupp1.myapplication.model.Place
 import com.se.iths.app21.grupp1.myapplication.model.Places
-import kotlinx.android.synthetic.main.activity_inloggning.*
 import kotlinx.android.synthetic.main.activity_list_view.*
 
 class ListViewActivity : AppCompatActivity() {

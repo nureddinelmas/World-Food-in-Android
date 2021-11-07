@@ -27,7 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -40,7 +39,7 @@ import com.se.iths.app21.grupp1.myapplication.adapter.PlaceInfoAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Places
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
-import com.se.iths.app21.grupp1.myapplication.model.DataManagerPlacesDescriptions.place
+import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
@@ -75,6 +74,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
     private var directionOfPlaces = false
     private var placeList = ArrayList<Places>()
+
+    private lateinit var posFromListView :String
 
     @SuppressLint("RestrictedApi", "WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -192,6 +193,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         mMap.setOnMapClickListener(this)
 
         getData()
+
+            val intent = intent
+        posFromListView = intent.getStringExtra("position").toString()
 
 
 
@@ -350,6 +354,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
     }
 
     override fun onMapClick(p0: LatLng) {
+        posFromListView =""
         mMap.clear()
         getData()
     }
@@ -370,6 +375,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                         for (document in documents){
                             val place = document.toObject(Places::class.java)
 
+
                             placeList.add(Places(place!!.id, place.name, place.land, place.beskrivning,place.lat, place.long, place.userEmail, place.image.toString()))
                             place.land?.let { adapter!!.addCuisine(it) }
                         }
@@ -378,12 +384,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                 }
             }
 
-            val intent = intent
-            var pos = intent.getStringExtra("position")
+
             for (place in placeList){
 
-                if(pos == "new"){
-                    println(pos)
+                if(posFromListView == "new"){
+                    println(posFromListView)
                     mMap.clear()
                     val doc = intent.getStringExtra("doc")
 
@@ -396,15 +401,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                             marker!!.tag = place
                         }
                     }
+
+                }else{
+                    if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
+
+                        val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
+                        marker!!.tag = place
+
                 }
-                if(adapter!!.selectedCountries.isEmpty() || adapter!!.selectedCountries.contains(place.land)){
 
-                    val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
-                    marker!!.tag = place
+                }
 
-                    val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
-                    mMap.setInfoWindowAdapter(placeAdapter)
-                }}
+                val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
+                mMap.setInfoWindowAdapter(placeAdapter)
+
+            }
         }
 
     }}

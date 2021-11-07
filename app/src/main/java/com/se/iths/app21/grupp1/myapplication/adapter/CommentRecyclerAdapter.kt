@@ -24,7 +24,12 @@ class CommentRecyclerAdapter(private val commentList: ArrayList<Comments>) : Rec
 
             holder.binding.commentsText.text = commentList[position].comment
             holder.binding.commentNameText.text = commentList[position].name + "  säger : "
-            holder.binding.ratingBarComment.rating = commentList[position].rating!!.toString().toFloat()
+        if(commentList[position].rating != null){
+            holder.binding.ratingBarComment.rating = commentList[position].rating.toString().toFloat()
+        }else{
+            holder.binding.ratingBarComment.rating = 0f
+        }
+
     }
 
     override fun getItemCount() = commentList.size

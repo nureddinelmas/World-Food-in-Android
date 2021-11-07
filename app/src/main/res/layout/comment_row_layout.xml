@@ -52,9 +52,7 @@
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:numStars="4"
-        android:stepSize="1.0"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
