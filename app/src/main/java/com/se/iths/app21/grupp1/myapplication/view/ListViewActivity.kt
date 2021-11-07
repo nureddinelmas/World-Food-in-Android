@@ -1,11 +1,15 @@
 package com.se.iths.app21.grupp1.myapplication.view
 
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
+import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.adapter.ListViewAdapter
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityListViewBinding
 import com.se.iths.app21.grupp1.myapplication.model.Places
@@ -17,10 +21,17 @@ class ListViewActivity : AppCompatActivity() {
     lateinit var placeList : ArrayList<Places>
     lateinit var db : FirebaseFirestore
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.abs_layout)
 
        db  = FirebaseFirestore.getInstance()
         binding.listViewRecyclerView.layoutManager = LinearLayoutManager(this)

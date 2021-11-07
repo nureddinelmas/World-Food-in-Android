@@ -3,6 +3,7 @@ package com.se.iths.app21.grupp1.myapplication.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.se.iths.app21.grupp1.myapplication.R
@@ -12,10 +13,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val db = Firebase.firestore
+        Handler().postDelayed({
+            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+            startActivity(intent)
+        }, 2000)
 
-     val intent = Intent(this@MainActivity, MapsActivity::class.java)
-     startActivity(intent)
     }
 
 

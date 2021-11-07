@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-android:layout_height="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/frameLayout">
 
     <fragment
@@ -30,7 +30,8 @@ android:layout_height="match_parent"
         tools:layout_conversion_absoluteHeight="194dp"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_conversion_absoluteWidth="200dp" />
+        tools:layout_conversion_absoluteWidth="200dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/categoryFloatingActionButton"
@@ -44,7 +45,8 @@ android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_sort_24"
         tools:layout_conversion_absoluteHeight="56dp"
-        tools:layout_conversion_absoluteWidth="56dp" />
+        tools:layout_conversion_absoluteWidth="56dp"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/ListViewImageView"
@@ -56,7 +58,8 @@ android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_format_list" />
+        app:srcCompat="@drawable/ic_baseline_format_list"
+        android:contentDescription="TODO" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

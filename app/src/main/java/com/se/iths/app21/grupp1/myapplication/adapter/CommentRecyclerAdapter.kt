@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.se.iths.app21.grupp1.myapplication.databinding.CommentRowLayoutBinding
+import com.se.iths.app21.grupp1.myapplication.gone
 import com.se.iths.app21.grupp1.myapplication.model.Comments
 
 
@@ -24,10 +25,10 @@ class CommentRecyclerAdapter(private val commentList: ArrayList<Comments>) : Rec
 
             holder.binding.commentsText.text = commentList[position].comment
             holder.binding.commentNameText.text = commentList[position].name + "  säger : "
-        if(commentList[position].rating != null){
+        if(commentList[position].rating != ""){
             holder.binding.ratingBarComment.rating = commentList[position].rating.toString().toFloat()
         }else{
-            holder.binding.ratingBarComment.rating = 0f
+            holder.binding.ratingBarComment.gone()
         }
 
     }

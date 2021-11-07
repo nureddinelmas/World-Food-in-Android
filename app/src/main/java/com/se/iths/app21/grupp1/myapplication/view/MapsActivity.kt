@@ -39,6 +39,7 @@ import com.se.iths.app21.grupp1.myapplication.adapter.PlaceInfoAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Places
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityMapsBinding
+import com.se.iths.app21.grupp1.myapplication.model.Place
 import kotlinx.android.synthetic.main.activity_places.*
 import java.util.*
 
@@ -98,8 +99,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
         db= FirebaseFirestore.getInstance()
 
 
-        val intent = intent
-
 
         sharedPreferences =
             this.getSharedPreferences("com.se.iths.app21.grupp1.myapplication", MODE_PRIVATE)
@@ -142,7 +141,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         adapter!!.CuisineSelectListener = CuisineSelectListener {
             this.getData()
-
         }
 
 
@@ -192,6 +190,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         mMap.setOnMapClickListener(this)
 
+        val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
+        mMap.setInfoWindowAdapter(placeAdapter)
         getData()
 
             val intent = intent
@@ -372,18 +372,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                 if(value != null){
                     if(!value.isEmpty){
                         val documents = value.documents
-                        for (document in documents){
-                            val place = document.toObject(Places::class.java)
-
-
+                        documents.forEach { it ->
+                            val place = it.toObject(Places::class.java)
                             placeList.add(Places(place!!.id, place.name, place.land, place.beskrivning,place.lat, place.long, place.userEmail, place.image.toString()))
                             place.land?.let { adapter!!.addCuisine(it) }
+
                         }
 
                     }
                 }
             }
-
 
             for (place in placeList){
 
@@ -396,7 +394,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
                         if (place.id == doc){
                             val loc = LatLng(place.lat!!.toDouble(), place.long!!.toDouble())
-                          val marker = mMap.addMarker(MarkerOptions().position(loc))
+                            val marker = mMap.addMarker(MarkerOptions().position(loc))
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                             marker!!.tag = place
                         }
@@ -408,15 +406,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                         val marker = mMap.addMarker(MarkerOptions().position(LatLng(place.lat!!.toDouble(), place.long!!.toDouble())))
                         marker!!.tag = place
 
-                }
+                    }
 
                 }
 
-                val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
-                mMap.setInfoWindowAdapter(placeAdapter)
 
             }
         }
 
-    }}
+    }
+
+}
 

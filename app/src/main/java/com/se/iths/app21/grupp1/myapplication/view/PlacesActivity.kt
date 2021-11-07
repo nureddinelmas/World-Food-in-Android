@@ -21,9 +21,12 @@ import com.se.iths.app21.grupp1.myapplication.adapter.CommentRecyclerAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.model.Place
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityPlacesBinding
+import com.se.iths.app21.grupp1.myapplication.gone
 import com.se.iths.app21.grupp1.myapplication.model.Places
+import com.se.iths.app21.grupp1.myapplication.visible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_places.*
+import kotlinx.android.synthetic.main.comment_row_layout.*
 import java.util.*
 
 
@@ -67,33 +70,30 @@ class PlacesActivity : AppCompatActivity(){
         if (currentUser != null){
             commentList = ArrayList<Comments>()
 
-            commentText.visibility= View.GONE
-            saveCommentButton.visibility = View.GONE
-            cancelButton.visibility = View.GONE
-            commentRatingBar.visibility = View.GONE
+            commentText.gone()
+            saveCommentButton.gone()
+            cancelButton.gone()
+            commentRatingBar.gone()
 
             getUserData()
 
 
         }else{
 
-            commentText.visibility= View.GONE
-            saveCommentButton.visibility = View.GONE
-            cancelButton.visibility = View.GONE
-            addCommentButton.visibility = View.GONE
+            commentText.gone()
+            saveCommentButton.gone()
+            cancelButton.gone()
+            addCommentButton.gone()
             Snackbar.make(binding.root, "Please first sign in to type a comment ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
                 val intent = Intent(this, InloggningActivity::class.java)
                 startActivity(intent)
             }.show()
         }
 
-
-
          docId = intent.getStringExtra("docId")
 
-
-
         getPlacesInfo()
+
 
         commentRecyclerView.layoutManager = LinearLayoutManager(this)
         commentAdapter = CommentRecyclerAdapter(commentList)
@@ -101,35 +101,30 @@ class PlacesActivity : AppCompatActivity(){
         getCommentsData()
 
       addCommentButton.setOnClickListener {
-            commentRecyclerView.visibility = View.GONE
-            commentText.visibility= View.VISIBLE
-            addCommentButton.visibility = View.GONE
-            saveCommentButton.visibility = View.VISIBLE
-            cancelButton.visibility = View.VISIBLE
-            commentRatingBar.visibility = View.VISIBLE
+            commentRecyclerView.gone()
+            commentText.visible()
+            addCommentButton.gone()
+            saveCommentButton.visible()
+            cancelButton.visible()
+            commentRatingBar.visible()
         }
 
         cancelButton.setOnClickListener {
 
-            commentRecyclerView.visibility = View.VISIBLE
-            commentText.visibility= View.GONE
-            commentRatingBar.visibility = View.GONE
-            addCommentButton.visibility = View.VISIBLE
-            saveCommentButton.visibility = View.GONE
-            cancelButton.visibility = View.GONE
+            commentRecyclerView.visible()
+            commentText.gone()
+            commentRatingBar.gone()
+            addCommentButton.visible()
+            saveCommentButton.gone()
+            cancelButton.gone()
         }
 
     }
 
    private fun getPlacesInfo() {
 
+
        docId = intent.getStringExtra("docId")
-
-       val uuid = UUID.randomUUID()
-       val imageName = "$uuid"
-       val reference = storage.reference
-       val imageReference = reference.child("images").child(imageName)
-
 
        if (docId != null) {
            db.collection("Places").document(docId!!)
@@ -141,18 +136,7 @@ class PlacesActivity : AppCompatActivity(){
                             supportActionBar?.title= place!!.name!!.toUpperCase() + " RESTAURANGEN "
                             landPlacesTextListView.text = place!!.land
                             beskrivningPlacesText.text = place.beskrivning
-
-                             db.collection("Places").document(docId!!)
-                                 .get()
-                                 .addOnCompleteListener {
-                                     if (task != null) {
-                                         val result: StringBuffer = StringBuffer()
-                                         if(it.isSuccessful) {
-                                             var url = result.append(it.result!!.data!!.getValue("image")).toString()
-                                             Picasso.get().load(url).into(selectImage)
-                                                }
-                                     }
-                                 }
+                            Picasso.get().load(place.image).into(selectImage)
                         }
                }
        }
@@ -167,29 +151,34 @@ fun addComment(view: View){
         Toast.makeText(this, "något gick fel!", Toast.LENGTH_LONG).show()
     }else{
 
-        comments["comment"] = commentText.text.toString()
-        comments["userDocumentId"] = userDocumentId.toString()
-        comments["placeId"] = docId.toString()
-        comments["userName"] = userName.toString()
-        comments["email"] = auth.currentUser!!.email.toString()
-        comments["date"] = Timestamp.now()
-        comments["rating"] = commentRatingBar.rating.toString()
+        if(commentText.text.isNotEmpty()){
+            comments["comment"] = commentText.text.toString()
+            comments["userDocumentId"] = userDocumentId.toString()
+            comments["placeId"] = docId.toString()
+            comments["userName"] = userName.toString()
+            comments["email"] = auth.currentUser!!.email.toString()
+            comments["date"] = Timestamp.now()
+            comments["rating"] = commentRatingBar.rating.toString()
 
-        db.collection("Comments").add(comments).addOnSuccessListener {
-            Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
+            db.collection("Comments").add(comments).addOnSuccessListener {
+                Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
 
-            commentRecyclerView.visibility = View.VISIBLE
-            commentText.visibility= View.GONE
-            addCommentButton.visibility = View.VISIBLE
-            saveCommentButton.visibility = View.GONE
-            cancelButton.visibility = View.GONE
-            commentRatingBar.visibility = View.GONE
-            commentRatingBar.rating = 0.0F
-            commentText.setText("")
+                commentRecyclerView.visibility = View.VISIBLE
+                commentText.visibility= View.GONE
+                addCommentButton.visibility = View.VISIBLE
+                saveCommentButton.visibility = View.GONE
+                cancelButton.visibility = View.GONE
+                commentRatingBar.visibility = View.GONE
+                commentRatingBar.rating = 0.0F
+                commentText.setText("")
 
-        }.addOnFailureListener {
-            Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+        }else{
+            commentText.error = "Please enter your comment"
         }
+
     }
 
 
