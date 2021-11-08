@@ -1,5 +1,6 @@
 package com.se.iths.app21.grupp1.myapplication.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -77,6 +79,7 @@ class CommentFragment : DialogFragment() {
     }
 
 
+    @SuppressLint("RestrictedApi")
     fun addComment(){
 
         val comments = hashMapOf<String, Any>()
@@ -94,12 +97,9 @@ class CommentFragment : DialogFragment() {
                 comments["date"] = Timestamp.now()
                 comments["rating"] = commentRatingBar.rating.toString()
 
-                db.collection("Comments").add(comments).addOnSuccessListener {
-                   // Toast.makeText(activity, "Successfully", Toast.LENGTH_LONG).show()
+                db.collection("Comments").add(comments).addOnSuccessListener { Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show()
 
-                }.addOnFailureListener {
-                    //Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG).show()
-                }
+                }.addOnFailureListener { Toast.makeText(getApplicationContext(), it.localizedMessage, Toast.LENGTH_LONG).show() }
             }else{
                 commentText.error = "Please enter your comment"
             }
