@@ -73,16 +73,9 @@ class PlacesActivity : AppCompatActivity(){
         if (currentUser != null){
             commentList = ArrayList<Comments>()
 
-            commentText.gone()
-            saveCommentButton.gone()
-            cancelButton.gone()
-            commentRatingBar.gone()
             getUserData()
         }else{
 
-            commentText.gone()
-            saveCommentButton.gone()
-            cancelButton.gone()
             addCommentButton.gone()
             Snackbar.make(binding.root, "Please first sign in to type a comment ", Snackbar.LENGTH_INDEFINITE).setAction(
                 "Go to inloggning sida"

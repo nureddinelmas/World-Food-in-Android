@@ -11,17 +11,6 @@
     tools:context=".view.PlacesActivity">
 
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="179dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/edittext_layout"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -108,21 +97,6 @@
     </androidx.cardview.widget.CardView>
 
 
-    <EditText
-        android:id="@+id/commentText"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="1dp"
-        android:ems="10"
-        android:hint="Comment"
-        android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/addCommentButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/addCommentButton"
         android:layout_width="388dp"
@@ -131,46 +105,20 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/edittext_layout"
         android:text="Add Comment"
-        app:layout_constraintBottom_toTopOf="@+id/saveCommentButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/saveCommentButton"
-        android:layout_width="179dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/edittext_layout"
-        android:onClick="addComment"
-        android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/commentText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/addCommentButton"
         app:layout_constraintTop_toBottomOf="@+id/card_view"
         tools:listitem="@layout/comment_row_layout" />
-
-    <RatingBar
-        android:id="@+id/commentRatingBar"
-        android:layout_width="296dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="18dp"
-        android:numStars="4"
-        android:stepSize="1.0"
-        app:layout_constraintBottom_toTopOf="@+id/commentText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentRecyclerView"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

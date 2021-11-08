@@ -18,6 +18,7 @@ import com.se.iths.app21.grupp1.myapplication.adapter.CommentRecyclerAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Comments
 import com.se.iths.app21.grupp1.myapplication.model.Place
 import kotlinx.android.synthetic.main.activity_places.*
+import kotlinx.android.synthetic.main.fragment_comment.*
 import kotlinx.android.synthetic.main.fragment_comment.view.*
 import java.util.ArrayList
 
