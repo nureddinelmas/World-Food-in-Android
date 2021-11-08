@@ -84,14 +84,16 @@ class PlacesActivity : AppCompatActivity(){
             saveCommentButton.gone()
             cancelButton.gone()
             addCommentButton.gone()
-            Snackbar.make(binding.root, "Please first sign in to type a comment ", Snackbar.LENGTH_INDEFINITE).setAction("Go to inloggning sida",){
+            Snackbar.make(binding.root, "Please first sign in to type a comment ", Snackbar.LENGTH_INDEFINITE).setAction(
+                "Go to inloggning sida"
+            ){
                 val intent = Intent(this, InloggningActivity::class.java)
                 startActivity(intent)
             }.show()
         }
 
-         docId = intent.getStringExtra("docId")
-
+        docId = intent.getStringExtra("docId")
+        println(docId)
         getAverageRatingBar()
 
 
@@ -101,24 +103,18 @@ class PlacesActivity : AppCompatActivity(){
         commentRecyclerView.adapter = commentAdapter
         getCommentsData()
 
-      addCommentButton.setOnClickListener {
-            commentRecyclerView.gone()
-            commentText.visible()
-            addCommentButton.gone()
-            saveCommentButton.visible()
-            cancelButton.visible()
-            commentRatingBar.visible()
+        addCommentButton.setOnClickListener {
+            println(docId)
+            val dialog = CommentFragment()
+
+            val args = Bundle()
+            args.putString("docId", docId)
+
+            dialog.arguments = args
+
+            dialog.show(supportFragmentManager, "costumDialog")
         }
 
-        cancelButton.setOnClickListener {
-
-            commentRecyclerView.visible()
-            commentText.gone()
-            commentRatingBar.gone()
-            addCommentButton.visible()
-            saveCommentButton.gone()
-            cancelButton.gone()
-        }
 
     }
 
@@ -140,54 +136,16 @@ class PlacesActivity : AppCompatActivity(){
                             Picasso.get().load(place.image).into(selectImage)
 
                             ratingBarPlaces.rating = averageRatingBar
-                            println("average 2 -> $averageRatingBar")
+
 
                         }
                }
+
+
        }
    }
 
 
-fun addComment(view: View){
-
-    val comments = hashMapOf<String, Any>()
-
-    if (userDocumentId == null || docId == null || userDocumentId == null){
-        Toast.makeText(this, "något gick fel!", Toast.LENGTH_LONG).show()
-    }else{
-
-        if(commentText.text.isNotEmpty()){
-            comments["comment"] = commentText.text.toString()
-            comments["userDocumentId"] = userDocumentId.toString()
-            comments["placeId"] = docId.toString()
-            comments["userName"] = userName.toString()
-            comments["email"] = auth.currentUser!!.email.toString()
-            comments["date"] = Timestamp.now()
-            comments["rating"] = commentRatingBar.rating.toString()
-
-            db.collection("Comments").add(comments).addOnSuccessListener {
-                Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
-
-                commentRecyclerView.visibility = View.VISIBLE
-                commentText.visibility= View.GONE
-                addCommentButton.visibility = View.VISIBLE
-                saveCommentButton.visibility = View.GONE
-                cancelButton.visibility = View.GONE
-                commentRatingBar.visibility = View.GONE
-                commentRatingBar.rating = 0.0F
-                commentText.setText("")
-
-            }.addOnFailureListener {
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
-            }
-        }else{
-            commentText.error = "Please enter your comment"
-        }
-
-    }
-
-
-}
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -229,7 +187,6 @@ fun addComment(view: View){
             if(error != null){
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
 
-                println(error.localizedMessage)
             }else{
                 if(value != null){
                     val documents = value.documents
@@ -270,9 +227,7 @@ fun addComment(view: View){
                 antal ++
             }
             averageRatingBar = totalRating / antal
-            println("totalRating -> $totalRating")
-            println("antal -> $antal")
-            println("average 1 -> $averageRatingBar")
+
         }
     }
 
