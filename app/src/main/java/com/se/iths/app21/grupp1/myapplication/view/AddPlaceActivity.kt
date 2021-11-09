@@ -91,8 +91,8 @@ class AddPlaceActivity : AppCompatActivity() {
 
 
         if (auth.currentUser != null && selectedPicture != null) {
-            if (selectedPicture == null){
-                Snackbar.make(binding.root, "Images cannot be empty", Snackbar.LENGTH_LONG).show()
+            if (binding.selectImage == null){
+                Toast.makeText(applicationContext, "Please select image", Toast.LENGTH_LONG).show()
             }
 
             imageReference.putFile(selectedPicture!!).addOnSuccessListener {

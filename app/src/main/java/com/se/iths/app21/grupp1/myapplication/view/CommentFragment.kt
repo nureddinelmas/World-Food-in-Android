@@ -130,7 +130,7 @@ class CommentFragment : DialogFragment() {
                         email = value.get("email").toString()
                         profileImage = value.get(Constants.CHILD_PIMAGE).toString()
                         println("profileImage ->$profileImage")
-                        userName = value.get("userName").toString().capitalize()
+                        userName = value.get("userName").toString()
 
                         addComment()
 

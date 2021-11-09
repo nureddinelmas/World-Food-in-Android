@@ -198,6 +198,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         val placeAdapter = PlaceInfoAdapter(this@MapsActivity)
         mMap.setInfoWindowAdapter(placeAdapter)
+
         getData()
 
             val intent = intent
@@ -224,6 +225,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
             override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
                 super.onStatusChanged(provider, status, extras)
+            }
+
+            override fun onProviderDisabled(provider: String) {
+
+            }
+
+            override fun onProviderEnabled(provider: String) {
+
             }
 
         }
@@ -257,8 +266,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
             }
 
         } else {
-
-
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
 
             val lastlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)

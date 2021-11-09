@@ -27,7 +27,7 @@ class CommentRecyclerAdapter(private val commentList: ArrayList<Comments>) : Rec
 
             holder.binding.commentsText.text = commentList[position].comment
             holder.binding.commentNameText.text = commentList[position].name
-        if(commentList[position].profileImage != null || commentList[position].profileImage != "no_image"){
+        if(commentList[position].profileImage == null || commentList[position].profileImage == "no_image"){
             Glide.with(holder.itemView.context).load(R.drawable.ic_baseline_person).into(holder.binding.selectImagePlaces)
         }
             Glide.with(holder.itemView.context).load(commentList[position].profileImage).into(holder.binding.selectImagePlaces)

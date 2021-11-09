@@ -92,6 +92,15 @@ class PlacesActivity : AppCompatActivity(){
         getAverageRatingBar()
 
 
+        selectImage.setOnClickListener {
+            when(selectImage.rotation){
+                0f-> {selectImage.rotation = 90f}
+                90f-> {selectImage.rotation = 1800f}
+                1800f-> {selectImage.rotation = 2700f}
+                2700f-> {selectImage.rotation = 3600f}
+                3600f-> {selectImage.rotation = 0f}
+            }
+        }
 
         commentRecyclerView.layoutManager = LinearLayoutManager(this)
         commentAdapter = CommentRecyclerAdapter(commentList)

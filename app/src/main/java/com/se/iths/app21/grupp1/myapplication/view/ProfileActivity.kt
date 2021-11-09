@@ -62,7 +62,6 @@ class ProfileActivity : AppCompatActivity() {
 
         change_image_fab.setOnClickListener {
             givePermission()
-
         }
 
     }
@@ -90,7 +89,7 @@ class ProfileActivity : AppCompatActivity() {
             if(profileImage == "no_image" || profileImage == null){
                 Glide.with(this).load(R.drawable.ic_baseline_person).into(profile_page_pimage)
             }else{
-                Glide.with(this).load(profileImage).into(profile_page_pimage)
+                Glide.with(this.applicationContext).load(profileImage).into(profile_page_pimage)
             }
         }
 
@@ -124,27 +123,19 @@ class ProfileActivity : AppCompatActivity() {
 
 
     private fun givePermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            ) {
-                /*
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+              /*
                 Snackbar.make(
-                    this@ProfileActivity,
+                    this,
                     "Permission needed for gallery",
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction("Give Permission") {
                     permissionLaunher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }.show()
 
-                 */
+               */
+
             } else {
                 permissionLaunher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }

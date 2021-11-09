@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_places.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/comment_add_layout.xml" value="0.3890625" />
         <entry key="app/src/main/res/layout/comment_row_layout.xml" value="0.5454545454545454" />
         <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.375" />
