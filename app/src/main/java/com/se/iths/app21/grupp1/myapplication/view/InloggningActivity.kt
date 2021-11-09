@@ -24,8 +24,8 @@ import kotlinx.android.synthetic.main.activity_inloggning.searchText
 class InloggningActivity : AppCompatActivity() {
     private lateinit var binding : ActivityInloggningBinding
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,6 @@ class InloggningActivity : AppCompatActivity() {
 
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.abs_layout)
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
         frameLayout2.visibility = View.GONE
 
@@ -86,6 +84,7 @@ class InloggningActivity : AppCompatActivity() {
 
     fun saveDetails(view: View){
 
+        val userName = userNameText.text.toString()
         val email = emailText.text.toString()
         val password = passText.text.toString()
         val name = nameText.text.toString()
@@ -97,14 +96,14 @@ class InloggningActivity : AppCompatActivity() {
 
         if (email.isNotEmpty() && password.isNotEmpty()){
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+                users["userName"] = userName
                 users["name"] = name
                 users["surname"] = surname
                 users["email"] = email
                 users["age"] = age
-                users["userid"] = auth.currentUser!!.uid
+                users["profileImage"] = "no_image"
 
-
-                db.collection("Users").add(users).addOnSuccessListener {
+                db.collection("Users").document(auth.currentUser!!.uid).set(users).addOnSuccessListener {
                     Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
                     val intent = Intent(this@InloggningActivity, MapsActivity::class.java)
                     startActivity(intent)

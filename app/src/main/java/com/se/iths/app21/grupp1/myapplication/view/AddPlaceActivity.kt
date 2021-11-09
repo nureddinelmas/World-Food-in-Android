@@ -85,12 +85,15 @@ class AddPlaceActivity : AppCompatActivity() {
         val places = hashMapOf<String, Any>()
 
         val uuid = UUID.randomUUID()
-        val imageName = "$uuid"
+        val imageName = "$uuid.jpg"
         val reference = storage.reference
         val imageReference = reference.child("images").child(imageName)
 
 
         if (auth.currentUser != null && selectedPicture != null) {
+            if (selectedPicture == null){
+                Snackbar.make(binding.root, "Images cannot be empty", Snackbar.LENGTH_LONG).show()
+            }
 
             imageReference.putFile(selectedPicture!!).addOnSuccessListener {
 
@@ -129,7 +132,6 @@ class AddPlaceActivity : AppCompatActivity() {
 
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
-// 5
         }
     }
 

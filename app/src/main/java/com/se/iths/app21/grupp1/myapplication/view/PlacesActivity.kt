@@ -16,6 +16,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.se.iths.app21.grupp1.myapplication.Constants
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.adapter.CommentRecyclerAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Comments
@@ -45,6 +46,7 @@ class PlacesActivity : AppCompatActivity(){
     var docId : String? = null
     private var placeId: String? = null
     private var userName : String? = null
+    private var profileImage: String? = null
     private var userDocumentId: String? = null
     private var commentList = ArrayList<Comments>()
     private lateinit var commentAdapter : CommentRecyclerAdapter
@@ -146,6 +148,8 @@ class PlacesActivity : AppCompatActivity(){
 
         db.collection("Comments").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("placeId", docId).addSnapshotListener { value, error ->
 
+            getUserData()
+
             if (error != null){
                 Log.d("!!!", error.localizedMessage.toString())
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
@@ -159,8 +163,9 @@ class PlacesActivity : AppCompatActivity(){
                         val nameH = document.get("userName") as String
                         val placeId = document.get("placeId") as String
                         val ratingBar = document.get("rating") as? String
+                        val profilImage = document.get(Constants.CHILD_PIMAGE).toString()
 
-                        val commentAdd = Comments(nameH, comment, placeId, ratingBar)
+                        val commentAdd = Comments(nameH, comment, placeId, ratingBar, profilImage)
                         commentList.add(commentAdd)
                     }
                     commentAdapter!!.notifyDataSetChanged()
@@ -171,32 +176,33 @@ class PlacesActivity : AppCompatActivity(){
 
 
     fun getUserData(){
+
+        if(auth.currentUser != null){
         val currentUser = auth.currentUser!!.uid
         var name  = ""
         var surname =""
         var email =""
 
-        db.collection("Users").whereEqualTo("userid", currentUser).addSnapshotListener { value, error ->
+        db.collection("Users").document(currentUser).addSnapshotListener { value, error ->
             if(error != null){
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_LONG).show()
 
             }else{
                 if(value != null){
-                    val documents = value.documents
-                    for(document in documents){
-                        userDocumentId = document.id.toString()
-                        name = document.get("name") as String
-                        surname = document.get("surname") as String
-                        email = document.get("email") as String
+
+                        userDocumentId = value.id.toString()
+                        name = value.get("name").toString()
+                        surname = value.get("surname").toString()
+                        email = value.get("email").toString()
+                        profileImage = value.get(Constants.CHILD_PIMAGE).toString()
                         userName = "$name $surname"
 
-                    }
 
                 }
 
             }
         }
-
+        }
 
     }
 

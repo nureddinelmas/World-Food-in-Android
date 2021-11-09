@@ -19,8 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
+            android:name=".view.ProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MapsActivity"/>
+        <activity
             android:name=".view.ListViewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".view.MapsActivity"/>
         <activity
             android:name=".view.PlacesActivity"
             android:exported="true"

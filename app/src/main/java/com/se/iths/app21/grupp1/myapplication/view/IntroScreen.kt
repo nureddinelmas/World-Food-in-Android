@@ -16,7 +16,10 @@ class IntroScreen : AppCompatActivity() {
 
         Handler().postDelayed({
             val intent = Intent(this, MapsActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }, 2000)
+
     }
 }

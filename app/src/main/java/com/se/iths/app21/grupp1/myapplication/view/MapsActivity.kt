@@ -152,13 +152,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
 
         val signIn = menu?.findItem(R.id.signIn)
         val signOut = menu?.findItem(R.id.signOut)
+        val profilePage = menu?.findItem(R.id.profile_page)
 
         if (auth.currentUser == null) {
             signOut?.isVisible = false
             signIn?.isVisible = true
+            profilePage?.isVisible = false
         } else {
             signIn?.isVisible = false
             signOut?.isVisible = true
+            profilePage?.isVisible = true
         }
 
         return super.onCreateOptionsMenu(menu)
@@ -176,6 +179,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapLon
                 auth.signOut()
                 val intent = Intent(this@MapsActivity, MapsActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.profile_page->{
+                startActivity(Intent(this, ProfileActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

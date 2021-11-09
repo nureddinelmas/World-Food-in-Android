@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_color">
 
     <View
         android:layout_width="match_parent"
@@ -19,33 +20,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commentsText" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/selectImagePlaces"
+        android:layout_width="48dp"
+        android:layout_height="55dp"
+
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/commentNameText"
         android:layout_width="201dp"
-        android:layout_height="27dp"
-        android:background="@drawable/edittext_layout"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="2dp"
         android:backgroundTint="#EF5454"
-        android:paddingStart="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="2dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/selectImagePlaces"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/commentsText"
         android:layout_width="359dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/edittext_layout"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="2dp"
         android:backgroundTint="#E89F9F"
-        android:paddingStart="20dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
         android:text="TextView"
-        android:textColor="#170A0A"
+        app:layout_constraintBottom_toBottomOf="@+id/selectImagePlaces"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/selectImagePlaces"
+        app:layout_constraintTop_toBottomOf="@+id/commentNameText" />
 
     <RatingBar
         android:id="@+id/ratingBarComment"

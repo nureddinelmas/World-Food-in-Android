@@ -15,6 +15,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.se.iths.app21.grupp1.myapplication.Constants
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.adapter.CommentRecyclerAdapter
 import com.se.iths.app21.grupp1.myapplication.model.Comments
@@ -44,6 +45,7 @@ class CommentFragment : DialogFragment() {
     var docId : String? = null
     private var userName : String? = null
     private var userDocumentId: String? = null
+    private var profileImage: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,18 +63,11 @@ class CommentFragment : DialogFragment() {
             docId = requireArguments().getString("docId")
         }
 
-        val currentUser = auth.currentUser
-        if (currentUser != null){
-            getUserData()
-        }
-
-        println(docId)
-
         view.cancelButton.setOnClickListener {
             dismiss()
         }
         view.saveCommentButton.setOnClickListener {
-            addComment()
+            getUserData()
             dismiss()
         }
         return view
@@ -82,6 +77,7 @@ class CommentFragment : DialogFragment() {
     @SuppressLint("RestrictedApi")
     fun addComment(){
 
+        println("profile image 1->${profileImage}")
         val comments = hashMapOf<String, Any>()
 
         if (userDocumentId == null || docId == null){
@@ -89,6 +85,7 @@ class CommentFragment : DialogFragment() {
         }else{
 
             if(commentText.text.isNotEmpty()){
+
                 comments["comment"] = commentText.text.toString()
                 comments["userDocumentId"] = userDocumentId.toString()
                 comments["placeId"] = docId.toString()
@@ -96,6 +93,8 @@ class CommentFragment : DialogFragment() {
                 comments["email"] = auth.currentUser!!.email.toString()
                 comments["date"] = Timestamp.now()
                 comments["rating"] = commentRatingBar.rating.toString()
+                println("profile image->${profileImage}")
+                comments[Constants.CHILD_PIMAGE] = profileImage.toString()
 
                 db.collection("Comments").add(comments).addOnSuccessListener { Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show()
 
@@ -108,33 +107,38 @@ class CommentFragment : DialogFragment() {
 
 }
 
+
+    @SuppressLint("RestrictedApi")
     fun getUserData(){
-        val currentUser = auth.currentUser!!.uid
-        var name  = ""
-        var surname =""
-        var email =""
 
-        db.collection("Users").whereEqualTo("userid", currentUser).addSnapshotListener { value, error ->
-            if(error != null){
-                Toast.makeText(this.context, error.localizedMessage, Toast.LENGTH_LONG).show()
+        if(auth.currentUser != null){
+            val currentUser = auth.currentUser!!.uid
+            var name  = ""
+            var surname =""
+            var email =""
 
-            }else{
-                if(value != null){
-                    val documents = value.documents
-                    for(document in documents){
-                        userDocumentId = document.id
-                        name = document.get("name") as String
-                        surname = document.get("surname") as String
-                        email = document.get("email") as String
-                        userName = "$name $surname"
+            println("currentUser ->$currentUser")
+            db.collection("Users").document(currentUser).addSnapshotListener { value, error ->
+                if(error != null){
+                    Toast.makeText(getApplicationContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+
+                }else{
+                    if(value != null){
+                        userDocumentId = value.id.toString()
+                        name = value.get("name").toString()
+                        surname = value.get("surname").toString()
+                        email = value.get("email").toString()
+                        profileImage = value.get(Constants.CHILD_PIMAGE).toString()
+                        println("profileImage ->$profileImage")
+                        userName = value.get("userName").toString().capitalize()
+
+                        addComment()
 
                     }
 
                 }
-
             }
         }
-
 
     }
 }
