@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:background="#558B2F"
                 android:numStars="5"
+                android:stepSize="1.0"
                 app:layout_constraintBottom_toTopOf="@+id/beskrivningPlacesText"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
