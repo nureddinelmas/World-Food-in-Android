@@ -51,11 +51,11 @@ class AddPlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         supportActionBar?.setBackgroundDrawable(ColorDrawable(R.drawable.background_color))
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.abs_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
