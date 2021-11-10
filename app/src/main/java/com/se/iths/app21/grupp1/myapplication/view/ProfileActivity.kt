@@ -30,6 +30,8 @@ import com.se.iths.app21.grupp1.myapplication.Constants
 import com.se.iths.app21.grupp1.myapplication.Constants.CHILD_PIMAGE
 import com.se.iths.app21.grupp1.myapplication.R
 import com.se.iths.app21.grupp1.myapplication.databinding.ActivityProfileBinding
+import com.se.iths.app21.grupp1.myapplication.gone
+import com.se.iths.app21.grupp1.myapplication.visible
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.FileNotFoundException
 import java.lang.Exception
@@ -62,6 +64,7 @@ class ProfileActivity : AppCompatActivity() {
 
         change_image_fab.setOnClickListener {
             givePermission()
+            profile_ProgressBar.gone()
         }
 
     }
@@ -108,6 +111,7 @@ class ProfileActivity : AppCompatActivity() {
 
                     db.collection(Constants.CHILD_USERS).document(currentUser.uid).update(Constants.CHILD_PIMAGE, downloadUrl).addOnSuccessListener {
                         Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
+                        profile_ProgressBar.gone()
                     }
                 }
 
@@ -153,6 +157,8 @@ class ProfileActivity : AppCompatActivity() {
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
+
+                    profile_ProgressBar.visible()
                     val intentFromResult = result.data
                     if (intentFromResult != null) {
                         selectedPicture = intentFromResult.data

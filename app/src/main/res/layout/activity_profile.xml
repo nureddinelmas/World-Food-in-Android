@@ -24,35 +24,37 @@
             app:contentScrim="@color/browser_actions_text_color">
 
             <ImageView
+                android:id="@+id/profile_page_pimage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/profile_page_pimage"
-                android:scaleType="fitXY"
-                app:layout_collapseMode="parallax"
-                android:src="@drawable/ic_baseline_person"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_person"
+                app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/profile_page_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:id="@+id/profile_page_toolbar"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/change_image_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_camera"
         app:fabSize="normal"
-        android:id="@+id/change_image_fab"
         app:layout_anchor="@id/profile_page_appbar"
         app:layout_anchorGravity="bottom|right"
-        android:src="@drawable/ic_baseline_camera"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -205,5 +207,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/profile_ProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
