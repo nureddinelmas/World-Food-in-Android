@@ -94,7 +94,7 @@ class AddPlaceActivity : AppCompatActivity() {
             val imageReference = reference.child("images").child(imageName)
 
 
-            if (auth.currentUser != null && selectedPicture != null) {
+            if (auth.currentUser != null && selectedPicture != null && binding.placeNameText.text.toString() != "" && binding.landText.text.toString() != ""  ){
                 if (binding.selectImage == null){
                     Toast.makeText(applicationContext, "Please select image", Toast.LENGTH_LONG).show()
                 }
@@ -123,6 +123,7 @@ class AddPlaceActivity : AppCompatActivity() {
                             places["image"] = downloadUri.toString()
 
                             db.collection("Places").add(places).addOnSuccessListener {
+                                Toast.makeText(this, "Successfully, Added new place :)", Toast.LENGTH_LONG).show()
                                 addPlaceProgressBar.gone()
                                 val intent = Intent(this, MapsActivity::class.java)
                                 startActivity(intent)
