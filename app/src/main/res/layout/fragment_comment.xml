@@ -47,6 +47,8 @@
         android:minHeight="48dp"
         android:paddingStart="20dp"
         android:paddingEnd="10dp"
+        android:textColor="#E3CECE"
+        android:textColorHint="#E8D9D9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commentRatingBar" />

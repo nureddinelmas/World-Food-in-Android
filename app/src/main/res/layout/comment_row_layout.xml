@@ -40,6 +40,7 @@
         android:paddingStart="15dp"
         android:paddingTop="2dp"
         android:text="TextView"
+        android:textColor="#E3CECE"
         app:layout_constraintStart_toEndOf="@+id/selectImagePlaces"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +54,7 @@
         android:paddingStart="25dp"
         android:paddingTop="5dp"
         android:text="TextView"
+        android:textColor="#E3CECE"
         app:layout_constraintBottom_toBottomOf="@+id/selectImagePlaces"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/selectImagePlaces"

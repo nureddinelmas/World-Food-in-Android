@@ -73,11 +73,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="https://www.abc.com"
-                    android:textSize="20sp"
-
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+
+                    android:text="https://www.abc.com"
+                    android:textColor="#EDE6E6"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/textAgeInlogning" />
 
@@ -89,13 +90,14 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
                     android:gravity="center"
-                    android:text="Age :"
-
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
 
+                    android:paddingEnd="10dp"
+                    android:text="Age :"
+                    android:textColor="#EDE6E6"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView4"
                     app:tint="@android:color/darker_gray" />
 
@@ -109,6 +111,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="0123 456 78 90"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/textNameInlogning" />
@@ -123,6 +126,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="https://www.abc.com"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/textSurnameInlogning" />
@@ -137,6 +141,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="Name :"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView7"
@@ -152,10 +157,11 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="Surname :"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
 
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
                     app:tint="@android:color/darker_gray" />
 
                 <TextView
@@ -170,6 +176,7 @@
                     android:paddingEnd="10dp"
                     android:text="About"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#EDE6E6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -186,6 +193,7 @@
                     android:paddingEnd="10dp"
 
                     android:text="Email :"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView"
@@ -201,6 +209,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="Hey there I am using UChat"
+                    android:textColor="#EDE6E6"
                     android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toBottomOf="@+id/textView7" />
