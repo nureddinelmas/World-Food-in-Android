@@ -25,6 +25,9 @@ import java.util.*
 
 
 import com.se.iths.app21.grupp1.myapplication.R
+import com.se.iths.app21.grupp1.myapplication.gone
+import com.se.iths.app21.grupp1.myapplication.visible
+import kotlinx.android.synthetic.main.activity_add_place.*
 
 
 class AddPlaceActivity : AppCompatActivity() {
@@ -37,6 +40,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLaunher: ActivityResultLauncher<String>
     lateinit var ratingBar: RatingBar
+    var imageControl = false
 
 
     var lat: Double? = null
@@ -68,10 +72,9 @@ class AddPlaceActivity : AppCompatActivity() {
 
 
         binding.saveButton.setOnClickListener {
-            // upload()
+            addPlaceProgressBar.visible()
             savePlaces()
-            val intent = Intent(this, MapsActivity::class.java)
-            startActivity(intent)
+
         }
 
         binding.selectImage.setOnClickListener {
@@ -82,57 +85,65 @@ class AddPlaceActivity : AppCompatActivity() {
 
     private fun savePlaces() {
 
-        val places = hashMapOf<String, Any>()
 
-        val uuid = UUID.randomUUID()
-        val imageName = "$uuid.jpg"
-        val reference = storage.reference
-        val imageReference = reference.child("images").child(imageName)
+            val places = hashMapOf<String, Any>()
+
+            val uuid = UUID.randomUUID()
+            val imageName = "$uuid.jpg"
+            val reference = storage.reference
+            val imageReference = reference.child("images").child(imageName)
 
 
-        if (auth.currentUser != null && selectedPicture != null) {
-            if (binding.selectImage == null){
-                Toast.makeText(applicationContext, "Please select image", Toast.LENGTH_LONG).show()
-            }
-
-            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
-
-                val urlTask = imageReference.putFile(selectedPicture!!).continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        task.exception?.let {
-                            throw it
-                        }
-                    }
-                    imageReference.downloadUrl
-                }.addOnCompleteListener { task ->
-
-                    if (task.isSuccessful) {
-                        val downloadUri = task.result
-                        places["userEmail"] = auth.currentUser!!.email!!
-                        places["name"] = binding.placeNameText.text.toString()
-                        places["land"] = binding.landText.text.toString()
-                        places["lat"] = lat!!.toDouble()
-                        places["long"] = long!!.toDouble()
-                        places["beskrivning"] = binding.beskrivningText.text.toString()
-                        places["date"] = Timestamp.now()
-                        places["rating"] = binding.rBar.rating.toString()
-                        places["image"] = downloadUri.toString()
-
-                        db.collection("Places").add(places).addOnSuccessListener {
-                            finish()
-                        }.addOnFailureListener {
-                            Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
-                        }
-
-                    }
+            if (auth.currentUser != null && selectedPicture != null) {
+                if (binding.selectImage == null){
+                    Toast.makeText(applicationContext, "Please select image", Toast.LENGTH_LONG).show()
                 }
 
+                imageReference.putFile(selectedPicture!!).addOnSuccessListener {
 
-            }.addOnFailureListener {
+                    val urlTask = imageReference.putFile(selectedPicture!!).continueWithTask { task ->
+                        if (!task.isSuccessful) {
+                            task.exception?.let {
+                                throw it
+                            }
+                        }
+                        imageReference.downloadUrl
+                    }.addOnCompleteListener { task ->
 
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+                            places["userEmail"] = auth.currentUser!!.email!!
+                            places["name"] = binding.placeNameText.text.toString()
+                            places["land"] = binding.landText.text.toString()
+                            places["lat"] = lat!!.toDouble()
+                            places["long"] = long!!.toDouble()
+                            places["beskrivning"] = binding.beskrivningText.text.toString()
+                            places["date"] = Timestamp.now()
+                            places["rating"] = binding.rBar.rating.toString()
+                            places["image"] = downloadUri.toString()
+
+                            db.collection("Places").add(places).addOnSuccessListener {
+                                addPlaceProgressBar.gone()
+                                val intent = Intent(this, MapsActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }.addOnFailureListener {
+                                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+                    }
+
+                }.addOnFailureListener {
+
+                    Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                }
+            }else{
+                addPlaceProgressBar.gone()
+                Toast.makeText(this, "Please make sure to fill all blank", Toast.LENGTH_LONG).show()
             }
-        }
+
+
     }
 
     private fun givePermission() {
@@ -173,10 +184,11 @@ class AddPlaceActivity : AppCompatActivity() {
                 if (result.resultCode == RESULT_OK) {
                     val intentFromResult = result.data
                     if (intentFromResult != null) {
+                       addPlaceProgressBar.visible()
                         selectedPicture = intentFromResult.data
                         selectedPicture?.let {
                             binding.selectImage.setImageURI(it)
-
+                            addPlaceProgressBar.gone()
                         }
                     }
                 }
