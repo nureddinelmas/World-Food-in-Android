@@ -24,12 +24,14 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/edittext_layout"
-            android:ems="10"
             android:drawableStart="@drawable/ic_baseline_email"
             android:drawablePadding="12dp"
+            android:ems="10"
             android:hint="Enter a email"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,6 +50,8 @@
             android:hint="Password"
             android:inputType="textWebPassword"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailNameText" />
@@ -110,6 +114,8 @@
             android:hint="Age"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchText" />
@@ -126,6 +132,8 @@
             android:hint="Name"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,6 +151,8 @@
 
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -159,6 +169,8 @@
             android:hint="Email"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +188,8 @@
             android:hint="Password"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailText" />
@@ -192,6 +206,8 @@
             android:hint="Surname"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#F4EEEE"
+            android:textColorHint="#F4EEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameText" />

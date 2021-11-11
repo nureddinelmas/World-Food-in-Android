@@ -24,13 +24,14 @@
         android:layout_height="60dp"
         android:src="@drawable/fui_ic_yahoo_24dp" />
 
-    <TextView
-        android:id="@+id/textNameAndLand"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="TextView"
-        android:gravity="center"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textNameAndLand"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#F3EBEB"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
